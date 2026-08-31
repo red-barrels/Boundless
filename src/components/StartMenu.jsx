@@ -20,9 +20,20 @@ export default function StartMenu({ handleAppClick, handleLogout, isMuted, setIs
 
       <div style={{ height: '1px', background: 'var(--window-border)', margin: '4px 0' }} />
       
-      <button className="start-item" onClick={handleLogout} style={{ color: 'var(--text-main)' }}>
-        <LogOut size={20} color="var(--text-main)" />
-        Log out
+      <button className="start-item" onClick={handleLogout} style={{ color: 'var(--text-color)' }}>
+        <div style={{
+          width: '42px',
+          height: '42px',
+          borderRadius: '6px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(128, 128, 128, 0.25)',
+          flexShrink: 0
+        }}>
+          <LogOut size={22} color="var(--text-color)" />
+        </div>
+        <span>Log out</span>
       </button>
 
       <div className="mobile-sys-tray">

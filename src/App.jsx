@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Window from './components/Window';
 import LoginScreen from './components/LoginScreen';
+import WelcomeModal from './components/WelcomeModal';
 import StartMenu from './components/StartMenu';
 import Taskbar from './components/Taskbar';
 import { APP_DATA, leapImages, alffieImages } from './data/appsData';
+
 
 const loginAudio = new Audio('/Audio/login.mp3');
 loginAudio.volume = 0.5;
@@ -99,6 +101,10 @@ export default function App() {
       setIsAuthenticated(true);
       setLoginError(false);
       setPasswordInput('');
+      
+      /* ADD THIS LINE HERE */
+      sessionStorage.setItem('showWelcomeModal', 'true');
+
       if (!isMuted) {
         loginAudio.currentTime = 0;
         loginAudio.play().catch(() => {});
@@ -196,6 +202,9 @@ export default function App() {
     <>
       <div className="desktop-bg-light" />
       <div className="desktop-bg-dark" />
+      
+      {/* PLACE WELCOME MODAL HERE */}
+      <WelcomeModal isLoggedIn={isAuthenticated} isDarkMode={isDarkMode} />
       
       <div className="desktop" style={{ justifyContent: !isAuthenticated ? 'center' : 'flex-start', alignItems: !isAuthenticated ? 'center' : 'stretch' }}>
         

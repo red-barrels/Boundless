@@ -40,7 +40,7 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
       disableDragging={isMobile}
       enableResizing={!isMobile}
       minWidth={isMobile ? '100vw' : 600}
-      minHeight={isMobile ? '100vh' : 400}
+      minHeight={isMobile ? 'calc(100vh - 80px)' : 400} /* FIXED: Matches size constraint */
       maxWidth="100vw"
       bounds="parent"
       dragHandleClassName="window-header"
@@ -61,7 +61,8 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
           border: '1px solid var(--window-border)',
           borderRadius: isMobile ? '0' : '12px', 
           overflow: 'hidden', 
-          boxShadow: '0 12px 40px rgba(0,0,0,0.25)',
+          /* Updated Box Shadow */
+          boxShadow: 'inset 0 1px 0 0 var(--glass-shine), 0 12px 40px var(--glass-shadow)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)'
         }}
@@ -91,7 +92,8 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
           </div>
         </div>
         
-        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+        {/* ADDED: WebkitOverflowScrolling for smooth iOS mobile scrolling */}
+        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch' }}>
           {children}
         </div>
       </motion.div>

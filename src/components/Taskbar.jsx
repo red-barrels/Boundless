@@ -47,7 +47,7 @@ export default function Taskbar({
           Start
         </button>
         
-        <div style={{ width: '1px', height: '28px', background: 'var(--window-border)', margin: '0 4px', flexShrink: 0 }} />
+        <div style={{ width: '1px', height: '28px', background: 'var(--window-border)', margin: '0 12px', flexShrink: 0 }} />
         
         <div className="taskbar-apps-container">
           {windows.map(win => {
@@ -73,7 +73,7 @@ export default function Taskbar({
                       exit={{ scale: 0 }}
                       style={{ display: 'flex', alignItems: 'center', marginLeft: '6px' }}
                     >
-                      <Volume2 size={22} color="var(--text-main)" />
+                      <Volume2 size={22} color="var(--text-color)" />
                     </motion.div>
                   )}
                 </AnimatePresence>

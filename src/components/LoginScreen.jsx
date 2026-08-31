@@ -12,23 +12,23 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        gap: '20px',
+        gap: '24px',
         padding: '40px',
         borderRadius: '16px',
-        background: 'var(--bg-taskbar)',
+        background: 'var(--window-bg)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         border: '1px solid var(--window-border)',
-        boxShadow: '0 24px 48px rgba(0,0,0,0.2)',
-        width: '320px'
+        borderTop: '1px solid var(--glass-shine)',
+        boxShadow: 'inset 0 1px 0 0 var(--glass-shine), 0 24px 48px var(--glass-shadow)',
+        width: '340px',
+        boxSizing: 'border-box'
       }}
     >
-      <div style={{ textAlign: 'center' }}>
-        <h2 style={{ margin: '0', fontSize: '24px', fontWeight: 600 }}>Welcome</h2>
-      </div>
+
 
       <div style={{ width: '100%', position: 'relative', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '13px', fontWeight: 500, opacity: 0.8 }}>
+        <label style={{ fontSize: '13px', fontWeight: 500, opacity: 0.8, color: 'var(--text-color)' }}>
           Enter password
         </label>
         <input 
@@ -44,7 +44,7 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
             borderRadius: '8px',
             border: loginError ? '1px solid #ff4444' : '1px solid var(--window-border)',
             background: 'var(--window-bg)',
-            color: 'var(--text-main)',
+            color: 'var(--text-color)',
             fontSize: '15px',
             boxSizing: 'border-box',
             outline: 'none',
@@ -52,7 +52,7 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
             textAlign: 'center',
             letterSpacing: '2px'
           }}
-          onFocus={(e) => e.target.style.borderColor = 'var(--text-main)'}
+          onFocus={(e) => e.target.style.borderColor = 'var(--text-color)'}
           onBlur={(e) => e.target.style.borderColor = 'var(--window-border)'}
         />
         {loginError && (
@@ -65,7 +65,30 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
         )}
       </div>
 
-      <button type="submit" className="taskbar-btn" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+      <button 
+        type="submit" 
+        style={{ 
+          width: '100%', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '8px', 
+          marginTop: '8px',
+          padding: '12px 20px',
+          borderRadius: '8px',
+          border: 'none',
+          background: 'var(--text-color)',
+          color: 'var(--window-bg)',
+          fontSize: '16px',
+          fontWeight: 600,
+          cursor: 'pointer',
+          boxSizing: 'border-box',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+          transition: 'opacity 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+      >
         Login <ArrowRight size={18} />
       </button>
     </motion.form>
