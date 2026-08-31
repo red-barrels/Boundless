@@ -1,6 +1,8 @@
 import About from '../components/About';
 import ProjectTemplate from '../components/ProjectTemplate';
 
+const publicUrl = process.env.PUBLIC_URL || '';
+
 export const dummyBlocks = [
   { type: 'text', title: 'Phase 1: Research', text: 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.' },
   { type: 'text', title: 'Phase 2: Execution', text: 'Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at eget metus.' },
@@ -8,11 +10,11 @@ export const dummyBlocks = [
 ];
 
 export const leapImages = [
-  { url: '/Leap/carrousel/rain.jpg', caption: '' },
-  { url: '/Leap/carrousel/setting_goals_swim_snorkel_scuba.jpg', caption: '' },
-  { url: '/Leap/carrousel/sorting_information_writing_down.png', caption: '' },
-  { url: '/Leap/carrousel/vampire_cartoon_weaknesses_01.png', caption: '' },
-  { url: '/Leap/carrousel/vampire_cartoon_why_leave_last_job.png', caption: '' }
+  { url: `${publicUrl}/Leap/carrousel/rain.jpg`, caption: '' },
+  { url: `${publicUrl}/Leap/carrousel/setting_goals_swim_snorkel_scuba.jpg`, caption: '' },
+  { url: `${publicUrl}/Leap/carrousel/sorting_information_writing_down.png`, caption: '' },
+  { url: `${publicUrl}/Leap/carrousel/vampire_cartoon_weaknesses_01.png`, caption: '' },
+  { url: `${publicUrl}/Leap/carrousel/vampire_cartoon_why_leave_last_job.png`, caption: '' }
 ];
 
 export const leapBlocks = [
@@ -20,23 +22,23 @@ export const leapBlocks = [
   { type: 'text', title: 'Background and leadership', text: 'I started at Leap in 2009 as an illustrator. The company went through a massive overhaul shortly after, which forced a small crew of us to step up and rebuild. Under the new name Leap eLearning, I moved into a leadership role managing a team of illustrators and designers.' },
   { type: 'carousel', description: 'A collections of illustrations made for Leap courses.', images: leapImages },
   { type: 'text', title: 'Studio development', text: 'I took over our marketing media and built our internal film and photography studio from scratch. That meant outfitting the space with the right gear and eventually directing talent and crews on set and on location.' },
-  { type: 'video', src: '/Video/LF_welcome_emma.mp4', description: 'A video I directed and filmed for the Ladder Foundation in partnership with Leap Training.', poster: '/Video/Thumbnails/ladder-foundation.png' }
+  { type: 'video', src: `${publicUrl}/Video/LF_welcome_emma.mp4`, description: 'A video I directed and filmed for the Ladder Foundation in partnership with Leap Training.', poster: `${publicUrl}/Video/Thumbnails/ladder-foundation.png` }
 ];
 
 export const alffieImages = [
-  { url: '/Alffie/carrousel/5-stars.jpg', caption: '' },
-  { url: '/Alffie/carrousel/business_cards.png', caption: '' },
-  { url: '/Alffie/carrousel/chemical.jpg', caption: '' },
-  { url: '/Alffie/carrousel/community_meeting.png', caption: '' },
-  { url: '/Alffie/carrousel/culture_diversity.png', caption: '' },
-  { url: '/Alffie/carrousel/evolution.jpg', caption: '' },
-  { url: '/Alffie/carrousel/failing_stress_management_plan_meditate.png', caption: '' },
-  { url: '/Alffie/carrousel/human_rights_freedom_expression.png', caption: '' },
-  { url: '/Alffie/carrousel/learning_language1.png', caption: '' },
-  { url: '/Alffie/carrousel/meditation_comm.png', caption: '' },
-  { url: '/Alffie/carrousel/person_difficult_communication.png', caption: '' },
-  { url: '/Alffie/carrousel/talking_too_loudly_cs.png', caption: '' },
-  { url: '/Alffie/carrousel/traditional_approach_comm_services.png', caption: '' }
+  { url: `${publicUrl}/Alffie/carrousel/5-stars.jpg`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/business_cards.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/chemical.jpg`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/community_meeting.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/culture_diversity.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/evolution.jpg`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/failing_stress_management_plan_meditate.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/human_rights_freedom_expression.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/learning_language1.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/meditation_comm.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/person_difficult_communication.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/talking_too_loudly_cs.png`, caption: '' },
+  { url: `${publicUrl}/Alffie/carrousel/traditional_approach_comm_services.png`, caption: '' }
 ];
 
 export const alffieBlocks = [
@@ -45,14 +47,15 @@ export const alffieBlocks = [
   { type: 'carousel', images: alffieImages },
   { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
   { type: 'video', 
-    src: '/Video/foundations_of_wellbeing_partnership_presentation_captions_SMALL.mp4', 
-    poster: '/Video/Thumbnails/foundations_of_wellbeing.png' 
+    src: `${publicUrl}/Video/foundations_of_wellbeing_partnership_presentation_captions_SMALL.mp4`, 
+    poster: `${publicUrl}/Video/Thumbnails/foundations_of_wellbeing.png` 
   }
 ];
+
 export const ocImages = [
-  { url: '/OC/carrousel/AHCPCM308_1_photosynthesis.jpg', caption: '' },
-  { url: '/OC/carrousel/AHCPCM308_1_Transpiration.jpg', caption: '' },
-  { url: '/OC/carrousel/leaf_anatomy_labelledv1.jpg', caption: '' }
+  { url: `${publicUrl}/OC/carrousel/AHCPCM308_1_photosynthesis.jpg`, caption: '' },
+  { url: `${publicUrl}/OC/carrousel/AHCPCM308_1_Transpiration.jpg`, caption: '' },
+  { url: `${publicUrl}/OC/carrousel/leaf_anatomy_labelledv1.jpg`, caption: '' }
 ];
 
 export const openCollegesBlocks = [

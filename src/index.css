@@ -50,12 +50,12 @@ body {
 }
 
 .desktop-bg-light {
-  background-image: url('/Backgrounds/flow.jpg');
+  background-image: url('./Backgrounds/flow.jpg');
   opacity: 1;
 }
 
 .desktop-bg-dark {
-  background-image: url('/Backgrounds/tidal.jpg');
+  background-image: url('./Backgrounds/tidal.jpg');
   opacity: 0;
 }
 

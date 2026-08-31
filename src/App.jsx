@@ -8,10 +8,8 @@ import Taskbar from './components/Taskbar';
 import { APP_DATA, leapImages, alffieImages } from './data/appsData';
 
 
-const loginAudio = new Audio('/Audio/login.mp3');
-loginAudio.volume = 0.5;
-const logoutAudio = new Audio('/Audio/logout.mp3');
-logoutAudio.volume = 0.5;
+const loginAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/login.mp3');
+const logoutAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/logout.mp3');
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,11 +33,13 @@ export default function App() {
     loginAudio.load();
     logoutAudio.load();
     
+    const publicUrl = process.env.PUBLIC_URL || '';
+
     const coreAssets = [
-      '/Backgrounds/flow.jpg', '/Backgrounds/tidal.jpg',
-      '/Icons/alffie_icon.png', '/Icons/OC_icon.png', '/Icons/NAB_icon.png', 
-      '/Icons/chep_icon.png', '/Icons/leap_icon.png', '/Icons/about_icon.png', '/Icons/ai_icon.png',
-      '/Logos/oc_logo.png', '/Logos/NAB_logo.png', '/Logos/alffie_logo.png', '/Logos/leap_logo.png', '/Logos/CHEP_logo.png'
+      `${publicUrl}/Backgrounds/flow.jpg`, `${publicUrl}/Backgrounds/tidal.jpg`,
+      `${publicUrl}/Icons/alffie_icon.png`, `${publicUrl}/Icons/OC_icon.png`, `${publicUrl}/Icons/NAB_icon.png`, 
+      `${publicUrl}/Icons/chep_icon.png`, `${publicUrl}/Icons/leap_icon.png`, `${publicUrl}/Icons/about_icon.png`, `${publicUrl}/Icons/ai_icon.png`,
+      `${publicUrl}/Logos/oc_logo.png`, `${publicUrl}/Logos/NAB_logo.png`, `${publicUrl}/Logos/alffie_logo.png`, `${publicUrl}/Logos/leap_logo.png`, `${publicUrl}/Logos/CHEP_logo.png`
     ];
     
     const allAssets = [
