@@ -11,6 +11,8 @@ import { APP_DATA, leapImages, alffieImages } from './data/appsData';
 const loginAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/login.mp3');
 const logoutAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/logout.mp3');
 
+const publicUrl = process.env.PUBLIC_URL || '';
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
@@ -32,8 +34,6 @@ export default function App() {
   useEffect(() => {
     loginAudio.load();
     logoutAudio.load();
-    
-    const publicUrl = process.env.PUBLIC_URL || '';
 
     const coreAssets = [
       `${publicUrl}/Backgrounds/flow.jpg`, `${publicUrl}/Backgrounds/tidal.jpg`,
@@ -200,8 +200,8 @@ export default function App() {
 
   return (
     <>
-      <div className="desktop-bg-light" />
-      <div className="desktop-bg-dark" />
+      <div className="desktop-bg-light" style={{ backgroundImage: `url(${publicUrl}/Backgrounds/flow.jpg)` }} />
+      <div className="desktop-bg-dark" style={{ backgroundImage: `url(${publicUrl}/Backgrounds/tidal.jpg)` }} />
       
       {/* PLACE WELCOME MODAL HERE */}
       <WelcomeModal isLoggedIn={isAuthenticated} isDarkMode={isDarkMode} />

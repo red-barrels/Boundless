@@ -28,25 +28,24 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
   }, [targetPosition]);
 
   return (
-    <Rnd
+      <Rnd
+      className="window"
       default={{
         x: initialPos ? initialPos.x : 60,
         y: initialPos ? initialPos.y : 60,
         width: defaultWidth || 900,
         height: defaultHeight || 700,
       }}
-      position={isMobile ? { x: 0, y: 0 } : undefined}
-      size={isMobile ? { width: '100vw', height: 'calc(100vh - 80px)' } : undefined}
+      /* Removed the conditional size and position props here */
       disableDragging={isMobile}
       enableResizing={!isMobile}
-      minWidth={isMobile ? '100vw' : 600}
-      minHeight={isMobile ? 'calc(100vh - 80px)' : 400} /* FIXED: Matches size constraint */
-      maxWidth="100vw"
+      minWidth={600}
+      minHeight={400}
       bounds="parent"
       dragHandleClassName="window-header"
       onMouseDown={onFocus}
       style={{ zIndex, position: 'absolute' }}
-    >
+        >
       <motion.div 
         ref={windowRef}
         initial={{ scale: 0.1, opacity: 0, x: offsets.x, y: offsets.y }}

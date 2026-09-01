@@ -28,7 +28,7 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
 
 
       <div style={{ width: '100%', position: 'relative', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '13px', fontWeight: 500, opacity: 0.8, color: 'var(--text-color)' }}>
+        <label style={{ fontSize: '16px', fontWeight: 500, opacity: 0.8, color: 'var(--text-color)' }}>
           Enter password
         </label>
         <input 

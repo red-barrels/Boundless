@@ -449,9 +449,51 @@ button {
   }
 
   .taskbar {
-    padding: 0 8px;
-    bottom: 8px;
-    left: 8px;
-    right: 8px;
+    width: 100% !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
+    /* Optional: Keep your preferred padding below */
+    padding: 12px 16px !important; 
   }
+
+  .window {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: translate(0px, 0px) !important;
+    width: 100vw !important;
+    height: calc(100dvh - 65px) !important; /* Adjusts for taskbar height */
+    margin: 0 !important;
+  }
+
+  .window-content {
+    max-height: calc(100dvh - 140px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .login-screen {
+    transform: translateY(-15vh) !important;
+  }
+
+  .start-menu {
+    left: 16px !important;
+    bottom: 82px !important;
+    width: auto !important; /* Inherits desktop width */
+    max-height: none !important; /* Removes scroll trigger */
+    overflow: hidden !important; /* Hides the scrollbar completely */
+    padding: 12px !important; /* Reduces outer menu padding */
+    gap: 4px !important; /* Compresses gap if using flexbox */
+  }
+
+  .start-menu .start-item {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important;
+  }
+
 }

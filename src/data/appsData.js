@@ -22,7 +22,9 @@ export const leapBlocks = [
   { type: 'text', title: 'Background and leadership', text: 'I started at Leap in 2009 as an illustrator. The company went through a massive overhaul shortly after, which forced a small crew of us to step up and rebuild. Under the new name Leap eLearning, I moved into a leadership role managing a team of illustrators and designers.' },
   { type: 'carousel', description: 'A collections of illustrations made for Leap courses.', images: leapImages },
   { type: 'text', title: 'Studio development', text: 'I took over our marketing media and built our internal film and photography studio from scratch. That meant outfitting the space with the right gear and eventually directing talent and crews on set and on location.' },
-  { type: 'video', src: `${publicUrl}/Video/LF_welcome_emma.mp4`, description: 'A video I directed and filmed for the Ladder Foundation in partnership with Leap Training.', poster: `${publicUrl}/Video/Thumbnails/ladder-foundation.png` }
+  { type: 'video', src: `${publicUrl}/Video/LF_welcome_emma.mp4`,
+  description: 'A video I directed and filmed for the Ladder Foundation in partnership with Leap Training.',
+  poster: `${publicUrl}/Video/Thumbnails/ladder-foundation.png` }
 ];
 
 export const alffieImages = [
@@ -44,9 +46,10 @@ export const alffieImages = [
 export const alffieBlocks = [
   { type: 'text', text: 'Alffie is Australia’s largest nationally accredited digital education provider in employment services.' },
   { type: 'text', title: 'Bridging design and development', text: 'I joined Alffie in 2015, taking on a role that bridged design, marketing, and front-end web development. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow.' },
-  { type: 'carousel', images: alffieImages },
+  { type: 'carousel', description: 'A selection of illustrations I created at Alffie.', images: alffieImages },
   { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
   { type: 'video', 
+  description: 'A video I directed and filmed for the PukaUp and Melbourne University in partnership with Alffie.',
     src: `${publicUrl}/Video/foundations_of_wellbeing_partnership_presentation_captions_SMALL.mp4`, 
     poster: `${publicUrl}/Video/Thumbnails/foundations_of_wellbeing.png` 
   }
@@ -1815,6 +1818,13 @@ export const APP_DATA = [
     content: () => (
       <div style={{ padding: '32px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
         <h3 style={{ margin: '0 0 8px 0', fontSize: '22px' }}>Hi, I'm Tom.</h3>
+
+        <img 
+          src={`${publicUrl}/About/Tom_Profile_SMALL.jpg`} 
+          alt="Profile" 
+          style={{ width: '100%', maxWidth: '250px', borderRadius: '12px', marginBottom: '24px', display: 'block' }} 
+        />
+
         <p style={{ margin: '0 0 24px 0', opacity: 0.8 }}>
         I’m an experienced multidisciplinary designer and digital creator based in Melbourne. For over 15 years, I’ve been working at the intersection of design, education, and technology. I started out as an illustrator back in 2008, and over the years, my role has evolved to cover everything from team leadership and video production to UX/UI and front-end development. The recent explosion of AI in media production has changed the way I work. It’s been a massive industry shift to navigate, but it allowed me to build this website in ways I wouldn't have been able to otherwise.
         </p>

@@ -332,7 +332,17 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
                 transition={{ duration: 0.5 }}
                 style={{ width: '100%', maxWidth: '600px', margin: '0 auto', textAlign: 'left' }}
               >
+                {/* The title renders first, followed by the optional image, then the text */}
                 <h3 style={{ margin: '0 0 16px 0', fontSize: '22px' }}>{block.title}</h3>
+                
+                {block.image && (
+                  <img 
+                    src={block.image} 
+                    alt="Profile" 
+                    style={{ width: '100%', maxWidth: '250px', borderRadius: '12px', marginBottom: '16px', display: 'block' }} 
+                  />
+                )}
+                
                 <p style={{ margin: 0, opacity: 0.8, lineHeight: '1.6' }}>{block.text}</p>
               </motion.div>
             );

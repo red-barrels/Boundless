@@ -21,6 +21,17 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode }) {
     setIsOpen(false);
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    // Set initial value
+    handleResize();
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -70,14 +81,26 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode }) {
             </div>
 
             <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.5, opacity: 0.9 }}>
-              This portfolio is built as an interactive desktop environment. 
+            {isMobile 
+                ? "This portfolio is built as an interactive operating system environment. It changes when viewed on a mobile device, or using a larger desktop browser window." 
+                : "This portfolio is built as an interactive desktop environment."}
             </p>
 
-            <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', lineHeight: 1.5, flexDirection: 'column', gap: '20px', fontSize: '16px', opacity: 0.85 }}>
-              <li>Click the <strong>Start</strong> button in the taskbar to browse applications.</li>
-              <li>Drag, minimize, or close windows freely just like a real operating system (like Windows or macOS).</li>
-              <li>Toggle light/dark mode or mute audio using the system tray on the bottom right.</li>
-            </ul>
+            {isMobile ? (
+                /* --- MOBILE LIST --- */
+                <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', lineHeight: 1.5, flexDirection: 'column', gap: '20px', fontSize: '16px', opacity: 0.85 }}>
+                  <li>Tap the <strong>Start</strong> button to browse applications.</li>
+                  <li>Scroll through windows to view my projects.</li>
+                  <li>Toggle light/dark mode or mute audio using the system icons in the start menu.</li>
+                </ul>
+              ) : (
+                /* --- DESKTOP LIST --- */
+                <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', lineHeight: 1.5, flexDirection: 'column', gap: '20px', fontSize: '16px', opacity: 0.85 }}>
+                  <li>Click the <strong>Start</strong> button in the taskbar to browse applications.</li>
+                  <li>Drag, minimize, or close windows freely just like a real operating system (like Windows or macOS).</li>
+                  <li>Toggle light/dark mode or mute audio using the system tray on the bottom right.</li>
+                </ul>
+              )}
 
             <button
               onClick={handleClose}
