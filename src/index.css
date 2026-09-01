@@ -478,7 +478,10 @@ button {
   }
   
   .login-screen {
-    transform: translateY(-15vh) !important;
+    position: absolute !important;
+    top: 12% !important; /* Anchors it safely near the top */
+    transform: none !important; /* Clears the previous fix */
+    margin: 0 !important;
   }
 
   .start-menu {
