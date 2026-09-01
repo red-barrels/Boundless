@@ -465,6 +465,7 @@ button {
     left: 0 !important;
     transform: translate(0px, 0px) !important;
     width: 100% !important;
+    min-width: 0 !important; /* Kills the 600px inline constraint */
     max-width: 100vw !important;
     height: calc(100dvh - 65px) !important;
     box-sizing: border-box !important;
