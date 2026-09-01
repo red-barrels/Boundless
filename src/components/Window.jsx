@@ -39,8 +39,8 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
       /* Removed the conditional size and position props here */
       disableDragging={isMobile}
       enableResizing={!isMobile}
-      minWidth={600}
-      minHeight={400}
+      minWidth={isMobile ? '100%' : 600}
+      minHeight={isMobile ? '100%' : 400}
       bounds="parent"
       dragHandleClassName="window-header"
       onMouseDown={onFocus}
