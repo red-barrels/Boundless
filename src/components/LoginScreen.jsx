@@ -4,11 +4,12 @@ import { ArrowRight } from 'lucide-react';
 export default function LoginScreen({ handleLogin, passwordInput, setPasswordInput, loginError }) {
   return (
     <motion.form 
+      className="login-screen" 
       initial={{ opacity: 0, scale: 0.95, y: 10 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       onSubmit={handleLogin} 
-      style={{ 
+      style={{
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
@@ -58,7 +59,7 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
         {loginError && (
           <motion.span 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            style={{ position: 'absolute', bottom: '-24px', left: 0, width: '100%', textAlign: 'center', color: '#ff4444', fontSize: '13px' }}
+            style={{ position: 'absolute', bottom: '-24px', left: 0, width: '100%', textAlign: 'center', color: '#ff4444', fontSize: '16px' }}
           >
             Incorrect password
           </motion.span>
