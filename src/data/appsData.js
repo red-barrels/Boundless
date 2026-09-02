@@ -28,23 +28,20 @@ export const leapBlocks = [
 ];
 
 export const alffieImages = [
-  { url: `${publicUrl}/Alffie/carrousel/5-stars.jpg`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/business_cards.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/chemical.jpg`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/community_meeting.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/culture_diversity.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/evolution.jpg`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/failing_stress_management_plan_meditate.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/human_rights_freedom_expression.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/learning_language1.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/meditation_comm.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/person_difficult_communication.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/talking_too_loudly_cs.png`, caption: '' },
-  { url: `${publicUrl}/Alffie/carrousel/traditional_approach_comm_services.png`, caption: '' }
+  { url: `${publicUrl}/Alffie/5-stars.jpg` },
+  { url: `${publicUrl}/Alffie/business_cards.png` },
+  { url: `${publicUrl}/Alffie/chemical.jpg` },
+  { url: `${publicUrl}/Alffie/evolution.jpg` },
+  { url: `${publicUrl}/Alffie/eye_labelled.png` },
+  { url: `${publicUrl}/Alffie/failing_stress_management_plan_meditate.png` },
+  { url: `${publicUrl}/Alffie/learning_language1.png` },
+  { url: `${publicUrl}/Alffie/meditation_comm.png` },
+  { url: `${publicUrl}/Alffie/protest_march_megaphone.png` },
+  { url: `${publicUrl}/Alffie/skin_integumentary_system.png` }
 ];
 
 export const alffieBlocks = [
-  { type: 'text', text: 'Alffie is Australia’s largest nationally accredited digital education provider in employment services.' },
+  { type: 'text', text: 'Alffie is Australia’s largest employment services trraining provider.' },
   { type: 'text', title: 'Bridging design and development', text: 'I joined Alffie in 2015, taking on a role that bridged design, marketing, and front-end web development. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow.' },
   { type: 'carousel', description: 'A selection of illustrations I created at Alffie.', images: alffieImages },
   { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
@@ -56,9 +53,9 @@ export const alffieBlocks = [
 ];
 
 export const ocImages = [
-  { url: `${publicUrl}/OC/carrousel/AHCPCM308_1_photosynthesis.jpg`, caption: '' },
-  { url: `${publicUrl}/OC/carrousel/AHCPCM308_1_Transpiration.jpg`, caption: '' },
-  { url: `${publicUrl}/OC/carrousel/leaf_anatomy_labelledv1.jpg`, caption: '' }
+  { url: `${publicUrl}/OC/AHCPCM308_1_photosynthesis.jpg`, caption: '' },
+  { url: `${publicUrl}/OC/AHCPCM308_1_Transpiration.jpg`, caption: '' },
+  { url: `${publicUrl}/OC/leaf_anatomy_labelledv1.jpg`, caption: '' }
 ];
 
 export const openCollegesBlocks = [
