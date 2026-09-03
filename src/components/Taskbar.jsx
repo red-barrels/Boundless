@@ -11,7 +11,8 @@ export default function Taskbar({
   isMuted, 
   setIsMuted, 
   isDarkMode, 
-  setIsDarkMode 
+  setIsDarkMode,
+  isVisible = true
 }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -39,8 +40,9 @@ export default function Taskbar({
     <motion.div 
       className="taskbar"
       initial={{ y: 80, opacity: 0, scaleX: 0.8 }}
-      animate={{ y: 0, opacity: 1, scaleX: 1 }}
+      animate={isVisible ? { y: 0, opacity: 1, scaleX: 1 } : { y: 80, opacity: 0, scaleX: 0.8 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      style={{ pointerEvents: isVisible ? 'auto' : 'none' }}
     >
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flex: 1, overflow: 'hidden' }}>
         <button className="taskbar-btn" onClick={toggleStart} aria-label="Toggle Start Menu">

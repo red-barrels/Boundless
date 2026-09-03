@@ -1,5 +1,6 @@
 import About from '../components/About';
 import ProjectTemplate from '../components/ProjectTemplate';
+import GracefulImage from '../components/GracefulImage';
 
 const publicUrl = process.env.PUBLIC_URL || '';
 
@@ -1800,23 +1801,36 @@ export const chepBlocks = [
   }
 ];
 
+
+export const NABImages = [
+  { url: `${publicUrl}/NAB/NAB_02_growingindustry_edit_2100px.gif`, caption: '' },
+  { url: `${publicUrl}/NAB/NAB_3.jpg`, caption: '' },
+  { url: `${publicUrl}/NAB/NAB_2.jpg`, caption: '' },
+  { url: `${publicUrl}/NAB/NAB_1.jpg`, caption: '' }
+];
+
 export const nabBlocks = [
   { type: 'text', title: 'Accredited broker course', text: 'NAB needed an accredited course for brokers wishing to partner with the bank. The course was designed to get brokers up to speed on how to navigate and use NAB’s available tools and services.' },
-  { type: 'text', title: 'Custom LMS development', text: 'Working closely with our contact at the bank, I customised Alffie’s LMS using HTML and CSS to build out the course environment. The main focus was ensuring the interface and user experience strictly adhered to NAB’s rigid corporate branding guidelines, delivering a seamless, professional product that felt native to the bank.' }
+  { type: 'text', title: 'Custom LMS development', text: 'Working closely with our contact at the bank, I customised Alffie’s LMS using HTML and CSS to build out the course environment. The main focus was ensuring the interface and user experience strictly adhered to NAB’s rigid corporate branding guidelines, delivering a seamless, professional product that felt native to the bank.' },
+  { type: 'carousel', images: NABImages, description: 'A collection of images I created for the NAB, the Bank Behind the Broker: Accreditation Course ' },
+  { type: 'video', src: `${publicUrl}/Video/committedtotheindustry_update.mp4`,
+  description: 'A video that I recorded audio for, created images, and ensured met the strict NAB branding guidelines.',
+  poster: `${publicUrl}/Video/Thumbnails/NAB_Thumbnail.png` }
+
 ];
 
 export const APP_DATA = [
   { 
     id: 'about', 
     title: 'About Me', 
-    icon: <img src="/Icons/about_icon.png" alt="About Me" className="app-icon" />, 
+    icon: <GracefulImage src="/Icons/about_icon.png" alt="About Me" className="app-icon" />, 
     width: 800, 
     height: 750, 
     content: () => (
       <div style={{ padding: '32px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
         <h3 style={{ margin: '0 0 8px 0', fontSize: '22px' }}>Hi, I'm Tom.</h3>
 
-        <img 
+        <GracefulImage 
           src={`${publicUrl}/About/Tom_Profile_SMALL.jpg`} 
           alt="Profile" 
           style={{ width: '100%', maxWidth: '250px', borderRadius: '12px', marginBottom: '24px', display: 'block' }} 
@@ -1833,6 +1847,7 @@ export const APP_DATA = [
           <li style={{ marginBottom: '8px' }}><b>Bachelor of Design in Multimedia:</b> Swinburne University of Technology (2004 to 2006)</li>
           <li style={{ marginBottom: '8px' }}><b>Diploma of Music (Sound Production):</b> RMIT University (2007)</li>
           <li><b>Web Development:</b> PHP & JavaScript (Pluralsight), Web Design (Treehouse)</li>
+          <li><b>Brighton Bay Art Design & Photography Program:</b> (2003) - Art history, Industrial design, graphic design, ceramics, printing, drawing, life drawing, photography, developing film in a dark room.</li>
         </ul>
         
         <h3 style={{ margin: '32px 0 8px 0', fontSize: '22px' }}>Personal life</h3>
@@ -1859,7 +1874,7 @@ export const APP_DATA = [
   { 
     id: 'ai', 
     title: 'My thoughts on AI', 
-    icon: <img src="/Icons/ai_icon.png" alt="AI Thoughts" className="app-icon" />, 
+    icon: <GracefulImage src="/Icons/ai_icon.png" alt="AI Thoughts" className="app-icon" />, 
     width: 800, 
     height: 750, 
     content: () => (
@@ -1886,19 +1901,19 @@ export const APP_DATA = [
     </div>
   )},
   
-  { id: 'leap', title: 'Leap Training', icon: <img src="/Icons/leap_icon.png" alt="Leap" className="app-icon" />, width: 850, height: 750, content: (props) => 
-    <ProjectTemplate brandColor="#0F746F" logoUrl="/Logos/leap_logo.png" blocks={leapBlocks} {...props} /> 
-  },
-  { id: 'alffie', title: 'Alffie', icon: <img src="/Icons/alffie_icon.png" alt="Alffie" className="app-icon" />, width: 850, height: 750, content: (props) => 
+    { id: 'alffie', title: 'Alffie', icon: <GracefulImage src="/Icons/alffie_icon.png" alt="Alffie" className="app-icon" />, width: 850, height: 750, content: (props) => 
     <ProjectTemplate brandColor="#083036" logoUrl="/Logos/alffie_logo.png" blocks={alffieBlocks} {...props} /> 
   },
-  { id: 'open_colleges', title: 'Open Colleges', icon: <img src="/Icons/OC_icon.png" alt="Open Colleges" className="app-icon" />, width: 850, height: 750, content: (props) => 
+  { id: 'open_colleges', title: 'Open Colleges', icon: <GracefulImage src="/Icons/OC_icon.png" alt="Open Colleges" className="app-icon" />, width: 850, height: 750, content: (props) => 
     <ProjectTemplate brandColor="#9bcfd1" logoUrl="/Logos/oc_logo.png" blocks={openCollegesBlocks} {...props} /> 
   },
-  { id: 'nab', title: 'NAB', icon: <img src="/Icons/NAB_icon.png" alt="NAB" className="app-icon" />, width: 850, height: 750, content: (props) => 
-    <ProjectTemplate brandColor="#000000" logoUrl="/Logos/NAB_logo.png" blocks={nabBlocks} {...props} /> 
+  { id: 'nab', title: 'NAB', icon: <GracefulImage src="/Icons/NAB_icon.png" alt="NAB" className="app-icon" />, width: 850, height: 750, content: (props) => 
+    <ProjectTemplate brandColor="#000000" logoUrl="/Logos/NAB_logo.png" blocks={nabBlocks} {...props} />
   },
-  { id: 'chep', title: 'CHEP', icon: <img src="/Icons/chep_icon.png" alt="CHEP" className="app-icon" />, width: 850, height: 750, content: (props) => 
+  { id: 'leap', title: 'Leap Training', icon: <GracefulImage src="/Icons/leap_icon.png" alt="Leap" className="app-icon" />, width: 850, height: 750, content: (props) => 
+    <ProjectTemplate brandColor="#0F746F" logoUrl="/Logos/leap_logo.png" blocks={leapBlocks} {...props} /> 
+  },
+  { id: 'chep', title: 'CHEP', icon: <GracefulImage src="/Icons/chep_icon.png" alt="CHEP" className="app-icon" />, width: 850, height: 750, content: (props) => 
     <ProjectTemplate brandColor="#0077c8" logoUrl="/Logos/CHEP_logo.png" blocks={chepBlocks} {...props} /> 
   }
 ];

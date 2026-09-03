@@ -29,6 +29,10 @@ export default function App() {
   
   const [playingVideoId, setPlayingVideoId] = useState(null);
 
+  const [taskbarVisible, setTaskbarVisible] = useState(() => {
+    return sessionStorage.getItem('showWelcomeModal') !== 'true';
+  });
+
   const taskbarRefs = useRef({});
 
   useEffect(() => {
@@ -58,16 +62,26 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
+  // HINT LOGIC 1: Only start the 5-second timer AFTER the taskbar has animated into view
   useEffect(() => {
-    if (hasShownHintOnce || !isAuthenticated) return;
+    if (!isAuthenticated || !taskbarVisible || hasShownHintOnce) return;
+    
     const hintTimer = setTimeout(() => {
-      if (!isStartOpen && windows.length === 0) {
+      if (!isStartOpen) {
         setShowHint(true);
-        setHasShownHintOnce(true);
       }
     }, 5000);
+    
     return () => clearTimeout(hintTimer);
-  }, [isStartOpen, windows.length, hasShownHintOnce, isAuthenticated]);
+  }, [isAuthenticated, taskbarVisible, hasShownHintOnce, isStartOpen]);
+
+  // HINT LOGIC 2: Permanently kill the hint the first time Start is clicked
+  useEffect(() => {
+    if (isStartOpen) {
+      setShowHint(false);
+      setHasShownHintOnce(true);
+    }
+  }, [isStartOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -102,8 +116,8 @@ export default function App() {
       setLoginError(false);
       setPasswordInput('');
       
-      /* ADD THIS LINE HERE */
       sessionStorage.setItem('showWelcomeModal', 'true');
+      setTaskbarVisible(false);
 
       if (!isMuted) {
         loginAudio.currentTime = 0;
@@ -186,7 +200,6 @@ export default function App() {
 
   const toggleStart = () => {
     setIsStartOpen(!isStartOpen);
-    setShowHint(false);
   };
 
   const getButtonPosition = (id) => {
@@ -203,10 +216,35 @@ export default function App() {
       <div className="desktop-bg-light" style={{ backgroundImage: `url(${publicUrl}/Backgrounds/flow.jpg)` }} />
       <div className="desktop-bg-dark" style={{ backgroundImage: `url(${publicUrl}/Backgrounds/tidal.jpg)` }} />
       
-      {/* PLACE WELCOME MODAL HERE */}
-      <WelcomeModal isLoggedIn={isAuthenticated} isDarkMode={isDarkMode} />
+      {/* HEAVY BLUR OVERLAY FOR LOGIN SCREEN */}
+      <AnimatePresence>
+        {!isAuthenticated && (
+          <motion.div
+            key="login-blur"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              background: 'rgba(0, 0, 0, 0.25)',
+              zIndex: 0
+            }}
+          />
+        )}
+      </AnimatePresence>
       
-      <div className="desktop" style={{ justifyContent: !isAuthenticated ? 'center' : 'flex-start', alignItems: !isAuthenticated ? 'center' : 'stretch' }}>
+      <WelcomeModal 
+        isLoggedIn={isAuthenticated} 
+        isDarkMode={isDarkMode} 
+        onExplore={() => {
+          // Delay taskbar animation to wait for Modal's blur to fade out
+          setTimeout(() => setTaskbarVisible(true), 400); 
+        }} 
+      />
+      
+      <div className="desktop" style={{ position: 'relative', zIndex: 1, justifyContent: !isAuthenticated ? 'center' : 'flex-start', alignItems: !isAuthenticated ? 'center' : 'stretch' }}>
         
         {!isAuthenticated ? (
           <LoginScreen 
@@ -237,7 +275,8 @@ export default function App() {
                     {win.content({ 
                       appId: win.id, 
                       playingVideoId, 
-                      onToggleVideo: toggleVideo 
+                      onToggleVideo: toggleVideo,
+                      isMuted // Pass system mute state down
                     })}
                   </Window>
                 ))}
@@ -273,6 +312,7 @@ export default function App() {
               setIsMuted={setIsMuted}
               isDarkMode={isDarkMode}
               setIsDarkMode={setIsDarkMode}
+              isVisible={taskbarVisible}
             />
           </>
         )}

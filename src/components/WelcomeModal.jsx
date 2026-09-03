@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, X } from 'lucide-react';
 
-export default function WelcomeModal({ isLoggedIn, isDarkMode }) {
+export default function WelcomeModal({ isLoggedIn, isDarkMode, onExplore }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode }) {
     // Clear the session flag so it doesn't pop up again during this active session
     sessionStorage.removeItem('showWelcomeModal');
     setIsOpen(false);
+    if (onExplore) onExplore();
   };
 
   const [isMobile, setIsMobile] = useState(false);
@@ -38,7 +39,7 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode }) {
         <div style={{
           position: 'fixed',
           inset: 0,
-          background: 'rgba(0, 0, 0, 0.4)',
+          background: 'rgba(0, 0, 0, 0.12)', /* Undarkened background */
           backdropFilter: 'blur(8px)',
           WebkitBackdropFilter: 'blur(8px)',
           display: 'flex',
@@ -110,7 +111,7 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode }) {
                 borderRadius: '8px',
                 border: 'none',
                 background: 'var(--text-color)',
-                color: isDarkMode ? '#000000' : '#ffffff', /* Pure black in dark mode, pure white in light mode */
+                color: isDarkMode ? '#000000' : '#ffffff',
                 fontSize: '16px',
                 fontWeight: 600,
                 cursor: 'pointer',

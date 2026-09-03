@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import GracefulImage from './GracefulImage';
 
 function CarouselBlock({ images, description }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -161,7 +162,7 @@ function CarouselBlock({ images, description }) {
               boxSizing: 'border-box'
             }}
           >
-            <img 
+            <GracefulImage
               src={images[currentIndex].url} 
               alt={images[currentIndex].caption || 'Zoomed Project Image'}
               style={{
@@ -177,8 +178,15 @@ function CarouselBlock({ images, description }) {
   );
 }
 
-function VideoBlock({ src, poster, appId, playingVideoId, onToggleVideo, description }) {
+function VideoBlock({ src, poster, appId, playingVideoId, onToggleVideo, description, isMuted }) {
   const videoRef = useRef(null);
+
+  // Sync video element's muted state with global system mute
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
 
   useEffect(() => {
     if (playingVideoId !== appId && videoRef.current) {
@@ -291,7 +299,7 @@ function IframeBlock({ title, srcDoc, description }) {
   );
 }
 
-export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, playingVideoId, onToggleVideo }) {
+export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, playingVideoId, onToggleVideo, isMuted }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', boxSizing: 'border-box', paddingBottom: '64px' }}>
       <div style={{ 
@@ -306,7 +314,7 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
         marginBottom: '48px'
       }}>
         {logoUrl ? (
-          <img src={logoUrl} alt="Logo" style={{ height: '60px', objectFit: 'contain' }} />
+          <GracefulImage src={logoUrl} alt="Logo" style={{ height: '60px', objectFit: 'contain' }} />
         ) : (
           <h2 style={{ color: '#fff', margin: 0 }}>LOGO</h2>
         )}
@@ -336,9 +344,9 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
                 <h3 style={{ margin: '0 0 16px 0', fontSize: '22px' }}>{block.title}</h3>
                 
                 {block.image && (
-                  <img 
+                  <GracefulImage 
                     src={block.image} 
-                    alt="Profile" 
+                    alt="Project visual" 
                     style={{ width: '100%', maxWidth: '250px', borderRadius: '12px', marginBottom: '16px', display: 'block' }} 
                   />
                 )}
@@ -351,7 +359,18 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
             return <CarouselBlock key={idx} images={block.images} description={block.description} />;
           }
           if (block.type === 'video') {
-            return <VideoBlock key={idx} src={block.src} poster={block.poster} description={block.description} appId={appId} playingVideoId={playingVideoId} onToggleVideo={onToggleVideo} />;
+            return (
+              <VideoBlock 
+                key={idx} 
+                src={block.src} 
+                poster={block.poster} 
+                description={block.description} 
+                appId={appId} 
+                playingVideoId={playingVideoId} 
+                onToggleVideo={onToggleVideo} 
+                isMuted={isMuted} 
+              />
+            );
           }
           if (block.type === 'iframe') {
             return <IframeBlock key={idx} title={block.title} srcDoc={block.srcDoc} description={block.description} />;
