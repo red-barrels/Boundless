@@ -301,7 +301,7 @@ function IframeBlock({ title, srcDoc, description }) {
 
 export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, playingVideoId, onToggleVideo, isMuted }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', boxSizing: 'border-box', paddingBottom: '64px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', boxSizing: 'border-box', paddingBottom: '120px' }}>
       <div style={{ 
         width: '100%',
         boxSizing: 'border-box',
