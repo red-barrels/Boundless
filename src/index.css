@@ -473,7 +473,7 @@ button {
   }
 
   .window-content {
-    max-height: calc(100dvh - 140px);
+    max-height: calc(100dvh - 130px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
