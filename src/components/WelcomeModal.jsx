@@ -6,18 +6,24 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode, onExplore }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Only check if they are logged in AND haven't dismissed it this session
     if (isLoggedIn) {
-      const showModal = sessionStorage.getItem('showWelcomeModal');
-      if (showModal === 'true') {
+      try {
+        const showModal = sessionStorage.getItem('showWelcomeModal');
+        if (showModal === 'true') {
+          setIsOpen(true);
+        }
+      } catch (e) {
+        // Fallback: show modal if storage is restricted
         setIsOpen(true);
       }
     }
   }, [isLoggedIn]);
 
   const handleClose = () => {
-    // Clear the session flag so it doesn't pop up again during this active session
-    sessionStorage.removeItem('showWelcomeModal');
+    try {
+      sessionStorage.removeItem('showWelcomeModal');
+    } catch (e) {}
+    
     setIsOpen(false);
     if (onExplore) onExplore();
   };

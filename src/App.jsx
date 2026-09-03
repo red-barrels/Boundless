@@ -30,7 +30,11 @@ export default function App() {
   const [playingVideoId, setPlayingVideoId] = useState(null);
 
   const [taskbarVisible, setTaskbarVisible] = useState(() => {
-    return sessionStorage.getItem('showWelcomeModal') !== 'true';
+    try {
+      return sessionStorage.getItem('showWelcomeModal') !== 'true';
+    } catch (e) {
+      return true; // Fallback to visible if storage is blocked
+    }
   });
 
   const taskbarRefs = useRef({});
@@ -116,9 +120,14 @@ export default function App() {
       setLoginError(false);
       setPasswordInput('');
       
-      sessionStorage.setItem('showWelcomeModal', 'true');
+      try {
+        sessionStorage.setItem('showWelcomeModal', 'true');
+      } catch (e) {
+        // Handle restricted storage gracefully
+      }
+      
       setTaskbarVisible(false);
-
+  
       if (!isMuted) {
         loginAudio.currentTime = 0;
         loginAudio.play().catch(() => {});

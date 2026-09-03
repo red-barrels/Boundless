@@ -39,8 +39,8 @@ export default function Taskbar({
   return (
     <motion.div 
       className="taskbar"
-      initial={{ y: 80, opacity: 0, scaleX: 0.8 }}
-      animate={isVisible ? { y: 0, opacity: 1, scaleX: 1 } : { y: 80, opacity: 0, scaleX: 0.8 }}
+      initial={{ y: 80, opacity: 0 }}
+      animate={isVisible ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{ pointerEvents: isVisible ? 'auto' : 'none' }}
     >
