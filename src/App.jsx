@@ -311,18 +311,19 @@ export default function App() {
               )}
             </AnimatePresence>
 
-            <Taskbar 
-              toggleStart={toggleStart}
-              windows={windows}
-              taskbarRefs={taskbarRefs}
-              handleAppClick={handleAppClick}
-              playingVideoId={playingVideoId}
-              isMuted={isMuted}
-              setIsMuted={setIsMuted}
-              isDarkMode={isDarkMode}
-              setIsDarkMode={setIsDarkMode}
-              isVisible={taskbarVisible}
-            />
+            {taskbarVisible && (
+              <Taskbar 
+                toggleStart={toggleStart}
+                windows={windows}
+                taskbarRefs={taskbarRefs}
+                handleAppClick={handleAppClick}
+                playingVideoId={playingVideoId}
+                isMuted={isMuted}
+                setIsMuted={setIsMuted}
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            )}
           </>
         )}
       </div>
