@@ -1827,7 +1827,7 @@ export const APP_DATA = [
     width: 800, 
     height: 750, 
     content: () => (
-      <div style={{ padding: '32px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+      <div style={{ padding: '32px 32px 80px 32px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
         <h3 style={{ margin: '0 0 8px 0', fontSize: '22px' }}>Hi, I'm Tom.</h3>
 
         <GracefulImage 
@@ -1878,8 +1878,8 @@ export const APP_DATA = [
     width: 800, 
     height: 750, 
     content: () => (
-    <div style={{ padding: '32px', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto' }}>
-      <p style={{ margin: '0 0 24px 0', opacity: 0.8 }}>
+      <div style={{ padding: '32px 32px 80px 32px', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto' }}>
+        <p style={{ margin: '0 0 24px 0', opacity: 0.8 }}>
         AI has completely transformed how I work. My role as an educational illustrator has shifted heavily toward prompt engineering and AI management (a process I’d honestly prefer to fully automate so I can get back to actual hands-on creative work). While the images, video, audio, and code I generate are often higher quality, the real value is that I can work 10 to 20 times faster. That said, the skills I spent 15 years building before the 2022 AI boom aren't wasted. Taking raw AI output, dropping it into an editor, clipping audio, balancing volume, adding effects, and exporting the correct format for the web still requires a solid media and design background. Most people don't know how to do that.
       </p>
       
