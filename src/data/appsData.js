@@ -22,7 +22,7 @@ export const leapBlocks = [
   { type: 'text', title: 'Online training', text: 'Leap Learning/eLearning/Training was a Nationally Accredited online training company that created courses for unemployed people who were using the services of employment consultants (ECs) and Job Services Australia.' },
   { type: 'text', title: 'Background and leadership', text: 'I started at Leap in 2009 as an illustrator. The company went through a massive overhaul shortly after, which forced a small crew of us to step up and rebuild. Under the new name Leap eLearning, I moved into a leadership role managing a team of illustrators and designers.' },
   { type: 'carousel', description: 'A collections of illustrations made for Leap courses.', images: leapImages },
-  { type: 'text', title: 'Studio development', text: 'I took over our marketing media and built our internal film and photography studio from scratch. That meant outfitting the space with the right gear and eventually directing talent and crews on set and on location.' },
+  { type: 'text', title: 'Studio development', text: 'I took over our marketing media and set up our internal film and photography studio. This involved researching and purchasing the equipment, managing the layout, and handling everything from lighting and backdrops to cameras, before directing talent and crews on set and on location.' },
   { type: 'video', src: `${publicUrl}/Video/LF_welcome_emma.mp4`,
   description: 'A video I directed and filmed for the Ladder Foundation in partnership with Leap Training.',
   poster: `${publicUrl}/Video/Thumbnails/ladder-foundation.png` }
@@ -42,10 +42,11 @@ export const alffieImages = [
 ];
 
 export const alffieBlocks = [
-  { type: 'text', text: 'Alffie is Australia’s largest employment services trraining provider.' },
+  { type: 'text', text: 'Alffie is Australia’s largest employment services training provider.' },
   { type: 'text', title: 'Bridging design and development', text: 'I joined Alffie in 2015, taking on a role that bridged design, marketing, and front-end web development. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow.' },
+  { type: 'text', title: 'Exhibition and print campaigns', text: 'Beyond digital platforms, I design print campaigns and physical marketing collateral. When Alffie acts as a major sponsor at industry events like the DEA and NESA conferences, I create the exhibition graphics and promotional assets required to make our brand stand out in physical spaces.'},
   { type: 'carousel', description: 'A selection of illustrations I created at Alffie.', images: alffieImages },
-  { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
+  { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University, and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
   { type: 'video', 
   description: 'A video I directed and filmed for the PukaUp and Melbourne University in partnership with Alffie.',
     src: `${publicUrl}/Video/foundations_of_wellbeing_partnership_presentation_captions_SMALL.mp4`, 
