@@ -1927,7 +1927,7 @@ export const APP_DATA = [
         </p>
 
         <video 
-          src={`${publicUrl}/Video/Museum_Gemini.mp4`} 
+          src={`${publicUrl}/Video/Museum_Gemini_Pro.mp4`} 
           controls 
           muted={props.isMuted}
           onPlay={() => props.onToggleVideo(props.appId, true)}
