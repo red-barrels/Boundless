@@ -43,6 +43,7 @@ export const alffieImages = [
 
 export const alffieBlocks = [
   { type: 'text', text: 'Alffie is Australia’s largest employment services training provider.' },
+  { type: 'text', title: 'Product Design & Development', text: 'I designed the UI and managed the front-end development for a complex learning platform. My role required strict data management and adherence to the corporate design systems of major partners like NAB and Melbourne University.' },
   { type: 'text', title: 'Bridging design and development', text: 'I joined Alffie in 2015, taking on a role that bridged design, marketing, and front-end web development. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow.' },
   { type: 'text', title: 'Exhibition and print campaigns', text: 'Beyond digital platforms, I design print campaigns and physical marketing collateral. When Alffie acts as a major sponsor at industry events like the DEA and NESA conferences, I create the exhibition graphics and promotional assets required to make our brand stand out in physical spaces.'},
   { type: 'carousel', description: 'A selection of illustrations I created at Alffie.', images: alffieImages },
@@ -62,9 +63,8 @@ export const ocImages = [
 
 export const openCollegesBlocks = [
   { type: 'text', text: 'Open Colleges is Australia’s oldest distance education provider, delivering nationally accredited online courses to the general public.' },
-  { type: 'text', title: 'Content migration', text: 'When I joined, the immediate challenge was migrating their entire catalogue of training content from one custom learning management system to another. I led this transition, training and managing a team to rebuild the courses from the ground up using Articulate Rise 360.' },
+  { type: 'text', title: 'Enterprise System Migration', text: 'When I joined, the immediate challenge was migrating the entire training catalogue from a custom legacy system to a modern LMS. I led this transition, architecting the data structure for over 10,000 nested activities and managing complex asset libraries at an enterprise scale. I also trained and managed a production team to rebuild the courses from the ground up using Articulate Rise 360.'},
   { type: 'text', title: 'Scaling course production', text: 'To make sure everything stayed consistent across such a massive volume of content, I developed comprehensive style guides and custom templates that allowed our team to scale the rollout efficiently while keeping the design tight.' },
-  { type: 'carousel', images: ocImages, description: 'A collection of illustrations created for Certificate III in Horticulture.' },
   { 
     type: 'iframe', 
     title: 'Open Colleges Quiz',
@@ -726,7 +726,9 @@ export const openCollegesBlocks = [
 </script>
 </body>
 </html>` 
-  }
+  },
+  { type: 'carousel', images: ocImages, description: 'A collection of illustrations created for Certificate III in Horticulture.' },
+  
 ];
 
 export const chepBlocks = [
