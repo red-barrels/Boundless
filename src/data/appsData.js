@@ -28,6 +28,10 @@ export const leapBlocks = [
   poster: `${publicUrl}/Video/Thumbnails/ladder-foundation.png` }
 ];
 
+export const alffieProductDesignImages = [
+  { url: `${publicUrl}/Alffie/catalogue.jpg`, caption: 'Product design catalogue' }
+];
+
 export const alffieImages = [
   { url: `${publicUrl}/Alffie/5-stars.jpg` },
   { url: `${publicUrl}/Alffie/business_cards.png` },
@@ -45,6 +49,7 @@ export const alffieBlocks = [
   { type: 'text', text: 'Alffie is Australia’s largest employment services training provider.' },
   { type: 'text', title: 'Product Design & Development', text: 'I designed the UI and managed the front-end development for a complex learning platform. My role required strict data management and adherence to the corporate design systems of major partners like NAB and Melbourne University.' },
   { type: 'text', title: 'Bridging design and development', text: 'I joined Alffie in 2015, taking on a role that bridged design, marketing, and front-end web development. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow.' },
+  { type: 'carousel', description: 'Product design examples.', images: alffieProductDesignImages },
   { type: 'text', title: 'Exhibition and print campaigns', text: 'Beyond digital platforms, I design print campaigns and physical marketing collateral. When Alffie acts as a major sponsor at industry events like the DEA and NESA conferences, I create the exhibition graphics and promotional assets required to make our brand stand out in physical spaces.'},
   { type: 'carousel', description: 'A selection of illustrations I created at Alffie.', images: alffieImages },
   { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University, and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
