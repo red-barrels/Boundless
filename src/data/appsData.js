@@ -29,7 +29,7 @@ export const leapBlocks = [
 ];
 
 export const alffieProductDesignImages = [
-  { url: `${publicUrl}/Alffie/catalogue.jpg`, caption: 'Product design catalogue' }
+  { url: `${publicUrl}/Alffie/catalogue.jpg`, caption: 'Alffie course catalogue inside the student LMS' }
 ];
 
 export const alffieImages = [
@@ -47,14 +47,13 @@ export const alffieImages = [
 
 export const alffieBlocks = [
   { type: 'text', text: 'Alffie is Australia’s largest employment services training provider.' },
-  { type: 'text', title: 'Product Design & Development', text: 'I designed the UI and managed the front-end development for a complex learning platform. My role required strict data management and adherence to the corporate design systems of major partners like NAB and Melbourne University.' },
-  { type: 'text', title: 'Bridging design and development', text: 'I joined Alffie in 2015, taking on a role that bridged design, marketing, and front-end web development. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow.' },
-  { type: 'carousel', description: 'Product design examples.', images: alffieProductDesignImages },
-  { type: 'text', title: 'Exhibition and print campaigns', text: 'Beyond digital platforms, I design print campaigns and physical marketing collateral. When Alffie acts as a major sponsor at industry events like the DEA and NESA conferences, I create the exhibition graphics and promotional assets required to make our brand stand out in physical spaces.'},
+  { type: 'text', title: 'Product Design & Development', text: 'I joined Alffie in 2015, taking on a role bridging design, marketing, and front-end development. I designed the UI and managed front-end development for a complex learning platform. I learned UX/UI, HTML, CSS, and Bootstrap, along with enough JavaScript to handle interactive elements, eventually building a custom site using Webflow. My role required strict data management and adherence to the corporate design systems of major partners like NAB and Melbourne University.' },
+  { type: 'carousel', description: 'Product design example.', images: alffieProductDesignImages },
+  { type: 'text', title: 'Design and illustration', text: 'I managed the production of visual assets, establishing style guides and creating custom templates to maintain consistency across all content. This involved organising and managing large libraries of files and illustrations for integration into the learning management system.' },
   { type: 'carousel', description: 'A selection of illustrations I created at Alffie.', images: alffieImages },
   { type: 'text', title: 'Corporate client management', text: 'Working alongside corporate clients like NAB, Melbourne University, and the PAN Group meant my responsibilities expanded to include client communication and ensuring all project output aligned strictly with corporate brand identities.' },
   { type: 'video', 
-  description: 'A video I directed and filmed for the PukaUp and Melbourne University in partnership with Alffie.',
+    description: 'A video I directed and filmed for the PukaUp and Melbourne University in partnership with Alffie.',
     src: `${publicUrl}/Video/foundations_of_wellbeing_partnership_presentation_captions_SMALL.mp4`, 
     poster: `${publicUrl}/Video/Thumbnails/foundations_of_wellbeing.png` 
   }
