@@ -5,7 +5,7 @@ import LoginScreen from './components/LoginScreen';
 import WelcomeModal from './components/WelcomeModal';
 import StartMenu from './components/StartMenu';
 import Taskbar from './components/Taskbar';
-import { APP_DATA, leapImages, alffieImages } from './data/appsData';
+import { APP_DATA, leapImages, alffieImages, alffieProductDesignImages } from './data/appsData';
 
 
 const loginAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/login.mp3');
@@ -53,7 +53,8 @@ export default function App() {
     const allAssets = [
       ...coreAssets, 
       ...leapImages.map(img => img.url), 
-      ...alffieImages.map(img => img.url)
+      ...alffieImages.map(img => img.url),
+      ...alffieProductDesignImages.map(img => img.url)
     ];
 
     allAssets.forEach((src) => {
