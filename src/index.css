@@ -1,111 +1,302 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&display=swap');
+
+/* Apply Playfair Display to main app headings */
+.text-display, h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
 
 :root {
-  --window-bg: rgba(243, 244, 246, 0.65); 
-  --window-border: rgba(0, 0, 0, 0.15);
-  --glass-shine: rgba(255, 255, 255, 0.8); 
-  --glass-shadow: rgba(0, 0, 0, 0.15);
-  --text-color: #111827; 
-  /* Add these two lines: */
-  --tooltip-bg: #111827;
-  --tooltip-text: #ffffff;
+  --bg-desktop: #f0eee9;
+  --orb-1: #ebd4bf; 
+  --orb-2: #eadbc4; 
+  --orb-3: #c7beeb; 
+  --orb-4: #c2d8cf; 
+  --orb-5: #c3daf2; 
+  --orb-6: #edddff; /* Soft lilac */
+  --orb-7: #cefff4; /* Muted mint */
+  --orb-8: #fef3c7; /* Warm cream */
+  --orb-9: #d9f0ff; /* Ice blue */
+  --orb-10: #edd2f5; /* Pale lavender */
+  
+  --theme-shared: #ffffff;
+  --active-accent: var(--theme-shared);
+  --window-bg: rgba(255, 255, 255, 0.85);
+  --text-color: #111827;
+  --window-border: rgba(0, 0, 0, 0.12);
+  --glass-shine: rgba(255, 255, 255, 0.7);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='dark'] { 
-  --window-bg: rgba(30, 30, 35, 0.65);
+  --bg-desktop: #0a0b0f;
+  --orb-1: #213054; 
+  --orb-2: #0e3b38; 
+  --orb-3: #111826; 
+  --orb-4: #161538; 
+  --orb-5: #0f172a; 
+  --orb-6: #1a1740; /* Deep indigo */
+  --orb-7: #042f2e; /* Dark teal */
+  --orb-8: #260540; /* Deep purple */
+  --orb-9: #062030; /* Deep sky */
+  --orb-10: #1f1807; /* Deep blue */
+
+  --window-bg: rgba(18, 18, 18, 0.8);
+  --text-color: #f9fafb;
   --window-border: rgba(255, 255, 255, 0.15);
-  --glass-shine: rgba(255, 255, 255, 0.15);
-  --glass-shadow: rgba(0, 0, 0, 0.5);
-  --text-color: #f9fafb; 
-  /* Add these two lines: */
-  --tooltip-bg: #f9fafb;
-  --tooltip-text: #111827;
+  --glass-shine: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.7);
 }
 
-/* Apply text color globally to ensure readability */
-body, .window-content-area, .start-menu, .taskbar {
+/* Global Dark Mode Text Overrides */
+[data-theme='dark'] body {
   color: var(--text-color);
+}
+
+[data-theme='dark'] .window p,
+[data-theme='dark'] .window span,
+[data-theme='dark'] .window li,
+[data-theme='dark'] .window label {
+  color: #f9fafb !important;
+  opacity: 0.9;
+}
+
+[data-theme='dark'] .sys-tray-btn,
+[data-theme='dark'] .desktop-sys-tray {
+  color: #f9fafb !important;
+}
+
+[data-theme='dark'] .sys-tray-btn svg {
+  stroke: #f9fafb !important;
+}
+
+[data-theme='dark'] .window-control-btn {
+  color: #f9fafb;
+}
+
+/* Light Mode Primary Buttons (Solid Black) */
+.taskbar-btn,
+.login-submit-btn,
+.welcome-explore-btn {
+  background: #111827 !important; 
+  color: #ffffff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px; 
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.taskbar-btn:hover,
+.login-submit-btn:hover,
+.welcome-explore-btn:hover {
+  opacity: 0.85;
+}
+
+/* Taskbar App Hover - matches start menu style */
+.taskbar-app-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .taskbar-app-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Theme-coloured indicator dot above taskbar icons */
+.taskbar-indicator {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--app-theme, var(--active-accent));
+  box-shadow: 0 0 8px var(--app-theme, var(--active-accent));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.taskbar-indicator.visible {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Dark Mode Primary Buttons (Solid White) */
+[data-theme='dark'] .taskbar-btn,
+[data-theme='dark'] .login-submit-btn,
+[data-theme='dark'] .welcome-explore-btn {
+  background: #f9fafb !important;
+  color: #111827 !important;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  color: var(--text-color); /* Updated to use the correct variable */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-color);
   overflow: hidden;
   background-color: var(--bg-desktop);
-  transition: background-color 0.5s ease;
-}
-
-/* Background Crossfade Layers */
-.desktop-bg-light, .desktop-bg-dark {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100dvh; /* Updated from 100vh */
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  transition: opacity 0.8s ease-in-out;
-}
-
-.desktop-bg-light {
-  background-image: url('./Backgrounds/flow.jpg');
-  opacity: 1;
-}
-
-.desktop-bg-dark {
-  background-image: url('./Backgrounds/tidal.jpg');
-  opacity: 0;
-}
-
-[data-theme='dark'] .desktop-bg-light {
-  opacity: 0;
-}
-
-[data-theme='dark'] .desktop-bg-dark {
-  opacity: 1;
-}
-
-/* Video player and thumbnail formatting */
-video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 8px; /* Optional: matches the rounded aesthetic of your windows */
-  background-color: #000; /* Hides any flash of background while loading */
-}
-
-/* Icon Fade-in to prevent pop */
-.app-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
-  object-fit: cover;
-  animation: iconFadeIn 0.3s ease-out forwards;
-}
-
-@keyframes iconFadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .desktop {
   width: 100vw;
-  height: 100dvh; /* Updated from 100vh */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: var(--bg-desktop);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s ease;
 }
 
-/* Larger Floating Taskbar */
+.ambient-background {
+  position: absolute;
+  top: -25vh;
+  left: -25vw;
+  width: 150vw;
+  height: 150vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Doubled the shift range for a much stronger mouse response */
+  transform: translate(calc(var(--mouse-x-norm, 0) * -9vw), calc(var(--mouse-y-norm, 0) * -9vh));
+  transition: transform 0.3s ease-out;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 10%;
+  opacity: 0.9; 
+  pointer-events: none;
+  /* Removed the static CSS animation */
+}
+
+@keyframes orb-float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3vw, -4vh) scale(3); }
+  100% { transform: translate(-2vw, 3vh) scale(0.5); }
+}
+
+/* Scales up body text inside the column for better readability at 800px */
+.project-text-column p,
+.project-text-column li {
+  font-size: 20px !important; 
+  line-height: 1.6 !important; 
+}
+
+/* Scales up body text inside the column for better readability at 800px */
+.project-text-column p,
+.project-text-column li {
+  font-size: 18px;
+  line-height: 1.7 !important; /* Overrides the inline 1.6 line-heights */
+}
+
+/* Scales up the h3 subheadings */
+.project-text-column h3 {
+  font-size: 28px !important; 
+}
+
+@container app-window (max-width: 600px) {
+  .project-text-column {
+    min-height: auto !important;
+  }
+}
+
+.taskbar, .glass-panel, .start-menu, .login-screen {
+  background: var(--window-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--window-border) !important;
+  box-shadow: inset 0 1px 0 0 var(--glass-shine), 0 16px 40px var(--glass-shadow) !important;
+}
+
+  .text-icon {
+    display: inline-block;
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600; /* Softened from 700 for a cleaner look */
+    letter-spacing: 0.01em; /* Reduced from 0.05em */
+    background: transparent !important;
+    padding: 0;
+  }
+
+  .text-highlight {
+    background-color: var(--active-accent);
+    color: #ffffff;
+    padding: 0 12px 0.2em 12px;
+    border-radius: 4px;
+    display: inline-block;
+    line-height: 1;
+    transform: none; /* Removed the upward pull that caused the overlap */
+    transition: background-color 0.4s ease;
+  }
+  
+  .text-highlight.flush-left {
+    margin-left: 20px !important;
+  }
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+
+/* ------------------------------- */
+/* PROJECT ALIGNMENT SYSTEM        */
+/* ------------------------------- */
+
+/* The master wrapper that centers the entire page content */
+.project-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: app-window;
+}
+
+/* The 1000px container that provides the outer boundaries and side padding */
+.project-grid {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Force perfect left-alignment for all window typography */
+.window p,
+.window h1,
+.window h2,
+.window h3,
+.window h4,
+.window .text-display,
+.window .text-kicker {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
 .taskbar {
   position: absolute;
   bottom: 16px;
   left: 16px;
   right: 16px;
   height: 64px;
-  background: var(--bg-taskbar);
+  background: var(--window-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--window-border);
@@ -113,141 +304,47 @@ video {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px; /* Changed from 8px to 12px to match vertical breathing room */
+  padding: 0 12px;
   z-index: 9999;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
-.taskbar button {
-  font-size: 16px;
-  font-weight: 500;
+.taskbar-app-btn {
+  /* ... existing styles ... */
+  display: flex;
+  flex-direction: column; /* Stacks the dot above the text */
+  align-items: center;
+  justify-content: center;
+  padding: 4px 14px;
 }
 
-/* Start Button */
-.start-button {
-  background: rgba(128, 128, 128, 0.15); /* Gives it a button-like fill */
-  border: 1px solid var(--window-border);
-  border-radius: 6px;
-  padding: 6px 16px;
-  margin-right: 12px;
-  font-weight: 600;
-  box-shadow: inset 0 1px 0 0 var(--glass-shine), 0 2px 4px var(--glass-shadow);
-  transition: background 0.2s;
-  color: var(--text-color);
+.taskbar-app-btn img,
+.taskbar-app-btn svg {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
-.start-button:hover {
-  background: rgba(128, 128, 128, 0.25);
+.window-header * {
+  pointer-events: none;
 }
 
-
-.glass-panel {
-  background: var(--window-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--window-border);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-  border-radius: 12px;
-}
-
+/* ------------------------------- */
+/* START MENU LAYOUT               */
+/* ------------------------------- */
 .start-menu {
   position: absolute;
   bottom: 92px;
   left: 16px;
-  width: 320px; /* Wider for larger items */
+  width: 320px;
   padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   z-index: 10000;
   transform-origin: bottom left;
-}
-
-.taskbar, .start-menu {
-  background: var(--window-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--window-border);
-  box-shadow: 
-    inset 0 1px 0 0 var(--glass-shine), 
-    0 12px 40px var(--glass-shadow);
-}
-
-.start-item {
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-size: 17px; /* Larger text */
-  font-weight: 500;
-  text-align: left;
-  transition: background 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.start-item:hover {
-  background: var(--window-border);
-}
-
-.sys-tray-btn {
-  padding: 10px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  position: relative; /* Added for tooltip positioning */
-}
-
-.sys-tray-btn:hover {
-  background: var(--window-border);
-}
-
-/* Tooltips */
-.sys-tray-btn::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-  background: var(--tooltip-bg);
-  color: var(--tooltip-text);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s;
-  z-index: 10002;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-/* Tooltip Arrow */
-.sys-tray-btn::after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(2px);
-  border-width: 5px;
-  border-style: solid;
-  border-color: var(--tooltip-bg) transparent transparent transparent;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s;
-  z-index: 10002;
-}
-
-.sys-tray-btn:hover::before {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-8px);
-}
-
-.sys-tray-btn:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-3px);
+  border-radius: 16px;
 }
 
 @keyframes bounceHint {
@@ -255,53 +352,148 @@ video {
   50% { transform: translateY(-6px); }
 }
 
-
-[data-theme='dark'] .login-submit-btn {
-  background: #f9fafb; /* Solid white fill for dark mode contrast */
-  color: #111827;      /* Dark text for white button */
+/* ------------------------------- */
+/* START MENU ITEMS (incl. Log out)*/
+/* ------------------------------- */
+.start-item {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background-color 0.15s ease;
+  
+  /* Matches the App Name typography perfectly */
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-transform: capitalize;
+  letter-spacing: 0.01em;
 }
 
-.login-submit-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+.start-item:hover {
+  background: rgba(128, 128, 128, 0.12);
 }
 
-/* Start Hint */
+.start-item img,
+.start-item svg {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+
+/* ------------------------------- */
+/* START HINT TOOLTIP (Explore)    */
+/* ------------------------------- */
 .start-hint {
   position: absolute;
   bottom: 88px;
   left: 16px;
-  background: var(--tooltip-bg);
-  color: var(--tooltip-text);
+  background: var(--window-bg); /* Restores the glass bubble */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--window-border);
+  color: var(--text-color); 
   padding: 8px 14px;
   border-radius: 8px;
+  z-index: 10001;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  animation: bounceHint 2s infinite ease-in-out;
+  
+  /* Matches the App Name typography perfectly */
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  z-index: 10001;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  animation: bounceHint 1s infinite ease-in-out;
+  letter-spacing: 0.01em;
 }
 
-/* Start Hint Arrow */
 .start-hint::after {
   content: '';
   position: absolute;
   top: 100%;
   left: 20px;
-  border-width: 6px;
+  border-width: 7px;
   border-style: solid;
-  border-color: var(--tooltip-bg) transparent transparent transparent;
+  border-color: var(--window-bg) transparent transparent transparent;
 }
 
-/* Dark Mode Hint */
-.dark-mode-hint {
-  background: var(--tooltip-bg); 
-  color: var(--tooltip-text);       
+/* ------------------------------- */
+/* SYSTEM TRAY TOOLTIPS            */
+/* ------------------------------- */
+
+/* 1. The Parent Button (MUST have position: relative to anchor the tooltip) */
+.sys-tray-btn {
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+  position: relative; 
+}
+
+.sys-tray-btn:hover {
+  background: var(--window-border);
+}
+
+/* 2. Tooltip Body (Glass Speech Bubble) */
+.sys-tray-btn::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: var(--window-bg); 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--window-border);
+  color: var(--text-color); 
   padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 9999;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 10002;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* 3. Tooltip Arrow pointing down */
+.sys-tray-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--window-bg) transparent transparent transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 10002;
+}
+
+/* 4. Hover Animations */
+.sys-tray-btn:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.sys-tray-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
 }
 
 button {
@@ -312,70 +504,14 @@ button {
   cursor: pointer;
 }
 
-/* Taskbar and Start Buttons */
-.taskbar-btn {
-  background: var(--text-color);
-  color: #ffffff; /* Default for light mode */
-  border: none;
-  border-radius: 8px;
-  padding: 8px 18px;
-  margin-right: 0px;
-  margin-left: 0px;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: opacity 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Switches to pure black when dark mode is active */
-[data-theme="dark"] .taskbar-btn {
-  color: #000000;
-}
-
-.taskbar-btn:hover {
-  opacity: 0.9;
-}
-
-.taskbar-app-btn {
-  background: transparent;
-  border: 1px solid transparent;
-  transition: background 0.2s ease, opacity 0.2s ease;
-  gap: 10px;
-  height: calc(100% - 16px); /* Increases the gap to 8px top/bottom */
-  border-radius: 6px;
-  margin: 0 4px; /* Removed vertical margin since height handles it */
-  padding: 6px 12px; /* Fixed missing unit from your previous padding */
-  display: flex;
-  align-items: center;
-}
-
-.taskbar-app-btn.active {
-  background: var(--window-border);
-}
-
-.taskbar-app-btn:hover {
-  background: var(--window-border);
-  opacity: 0.75;
-}
-
-.taskbar-app-btn .app-icon {
-  width: 34px !important;
-  height: 34px !important;
-  border-radius: 5px;
-}
-
-/* Window Controls */
 .window-control-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 6px;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .window-control-btn:hover {
@@ -387,7 +523,6 @@ button {
   color: white;
 }
 
-/* Mobile Optimizations */
 .mobile-sys-tray {
   display: none;
 }
@@ -396,21 +531,68 @@ button {
   display: flex;
 }
 
-/* Taskbar overflow handling */
+/* ------------------------------- */
+/* TASKBAR APP BUTTONS & OUTLINES  */
+/* ------------------------------- */
+
 .taskbar-apps-container {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
-  overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
   flex: 1; 
 }
 
-.taskbar-apps-container::-webkit-scrollbar {
-  display: none; /* Safari/Chrome */
+.taskbar-app-btn {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  height: 36px;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  
+  /* Base state: transparent outline */
+  box-shadow: inset 0 0 0 1.5px transparent;
 }
 
-/* Window Header Icon */
+/* ACTIVE STATE: Full theme-coloured outline */
+.taskbar-app-btn.active {
+  box-shadow: inset 0 0 0 1.5px var(--app-theme);
+  /* Optional: Adds a very faint background tint of the theme colour */
+  background: color-mix(in srgb, var(--app-theme) 10%, transparent); 
+}
+
+/* HOVER STATE: Show the outline on mouse over */
+.taskbar-app-btn:hover {
+  box-shadow: inset 0 0 0 1.5px var(--app-theme);
+}
+
+/* --- MINIMISED STATE LOGIC --- */
+
+.taskbar-app-btn.minimized {
+  /* Draws a 3px line only at the bottom */
+  box-shadow: inset 0 -3px 0 0 var(--app-theme);
+  background: transparent; 
+}
+
+.taskbar-app-btn.minimized .text-icon {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+/* Hovering a minimised app restores text opacity and expands to full outline */
+.taskbar-app-btn.minimized:hover {
+  box-shadow: inset 0 0 0 1.5px var(--app-theme);
+}
+
+.taskbar-app-btn.minimized:hover .text-icon {
+  opacity: 1;
+}
+
 .window-header-icon {
   display: flex;
   align-items: center;
@@ -424,9 +606,107 @@ button {
   border-radius: 4px;
 }
 
+[data-theme='dark'] .massive-bg-text {
+  opacity: 0.15;
+}
 
+.dynamic-bg-container {
+  user-select: none;
+}
+
+.text-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Aggressive container-based scaling for main headers */
+.text-display {
+  font-size: clamp(3.2rem, 10cqi, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1.2; /* Increased from 0.95 to give lines more breathing room */
+  margin: 0 0 1rem 0;
+}
+
+.login-screen {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--window-bg);
+  color: var(--text-color);
+  border: 1px solid var(--window-border);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 340px;
+  box-sizing: border-box;
+}
+
+.login-screen input {
+  color: var(--text-color);
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid var(--window-border);
+  padding: 10px 14px;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.login-screen input:focus {
+  border-color: var(--text-color) !important;
+  box-shadow: 0 0 0 1px var(--text-color); 
+}
+
+.login-clock-container {
+  color: #111827;
+}
+
+[data-theme='dark'] .login-clock-container {
+  color: #f9fafb;
+}
+
+.hero-illustration {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: -40px;
+  right: -90px; /* Pushed further right to clear the new 800px text column */
+  z-index: 1; /* Forces the image behind the text layer */
+  pointer-events: none;
+}
+
+@container app-window (max-width: 768px) {
+  .hero-illustration {
+    width: 220px !important;
+    height: 220px !important;
+    top: -60px !important;
+    right: -40px !important;
+    opacity: 0.9 !important;
+  }
+}
+
+@container app-window (max-width: 520px) {
+  .hero-illustration {
+    width: 160px !important;
+    height: 160px !important;
+    top: -40px !important;
+    right: -40px !important;
+    opacity: 0.9 !important;
+  }
+}
 
 @media (max-width: 768px) {
+
   .mobile-sys-tray {
     display: flex;
     justify-content: space-around;
@@ -439,7 +719,6 @@ button {
     display: none !important;
   }
 
-  /* Hide app titles on mobile taskbar to prevent overflow */
   .taskbar-app-btn .app-title {
     display: none;
   }
@@ -455,7 +734,6 @@ button {
     margin: 0 !important;
     border-radius: 0 !important;
     box-sizing: border-box !important;
-    /* Optional: Keep your preferred padding below */
     padding: 12px 16px !important; 
   }
 
@@ -465,7 +743,7 @@ button {
     left: 0 !important;
     transform: translate(0px, 0px) !important;
     width: 100% !important;
-    min-width: 0 !important; /* Kills the 600px inline constraint */
+    min-width: 0 !important;
     max-width: 100vw !important;
     height: calc(100dvh - 65px) !important;
     box-sizing: border-box !important;
@@ -480,19 +758,19 @@ button {
   
   .login-screen {
     position: absolute !important;
-    top: 12% !important; /* Anchors it safely near the top */
-    transform: none !important; /* Clears the previous fix */
+    top: 12% !important;
+    transform: none !important;
     margin: 0 !important;
   }
 
   .start-menu {
     left: 16px !important;
     bottom: 82px !important;
-    width: auto !important; /* Inherits desktop width */
-    max-height: none !important; /* Removes scroll trigger */
-    overflow: hidden !important; /* Hides the scrollbar completely */
-    padding: 12px !important; /* Reduces outer menu padding */
-    gap: 4px !important; /* Compresses gap if using flexbox */
+    width: auto !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    padding: 12px !important;
+    gap: 4px !important;
   }
 
   .start-menu .start-item {
@@ -501,5 +779,4 @@ button {
     margin-bottom: 0 !important;
     min-height: auto !important;
   }
-
 }
