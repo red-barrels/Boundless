@@ -33,24 +33,23 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
       height: '100%',
       position: 'relative'
     }}>
-      <div style={{
-        position: 'absolute',
-        top: '15vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        userSelect: 'none',
-        textAlign: 'center'
-      }}>
+      <div 
+        className="login-clock-container"
+        style={{
+          position: 'absolute',
+          top: '15vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          userSelect: 'none',
+          textAlign: 'center'
+        }}
+      >
         <div style={{
           fontSize: '22px',
           fontWeight: 600,
           letterSpacing: '0.4px',
-          marginBottom: '8px',
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          filter: 'drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3))'
+          marginBottom: '8px'
         }}>
           {formatLoginDate(currentTime)}
         </div>
@@ -58,11 +57,7 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
           fontSize: '110px',
           fontWeight: 600,
           letterSpacing: '-3px',
-          lineHeight: '1',
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          filter: 'drop-shadow(0 4px 20px rgba(0, 0, 0, 0.25))'
+          lineHeight: '1'
         }}>
           {formatLoginTime(currentTime)}
         </div>
@@ -108,18 +103,15 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
               width: '100%',
               padding: '12px 16px',
               borderRadius: '8px',
-              border: loginError ? '1px solid #ff4444' : '1px solid var(--window-border)',
-              background: 'var(--window-bg)',
+              border: loginError ? '1px solid #ff4444' : '1px solid rgba(0, 0, 0, 0.2)',
+              background: 'rgba(0, 0, 0, 0.05)', /* Visible light-grey fill */
               color: 'var(--text-color)',
               fontSize: '15px',
               boxSizing: 'border-box',
               outline: 'none',
-              transition: 'border-color 0.2s',
               textAlign: 'center',
               letterSpacing: '2px'
             }}
-            onFocus={(e) => e.target.style.borderColor = 'var(--text-color)'}
-            onBlur={(e) => e.target.style.borderColor = 'var(--window-border)'}
           />
           {loginError && (
             <motion.span 
@@ -133,6 +125,7 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
 
         <button 
           type="submit" 
+          className="login-submit-btn"
           style={{ 
             width: '100%', 
             display: 'flex', 
@@ -143,8 +136,8 @@ export default function LoginScreen({ handleLogin, passwordInput, setPasswordInp
             padding: '12px 20px',
             borderRadius: '8px',
             border: 'none',
-            background: 'var(--text-color)',
-            color: 'var(--window-bg)',
+            background: 'var(--active-accent)',
+            color: '#ffffff',
             fontSize: '16px',
             fontWeight: 600,
             cursor: 'pointer',
