@@ -5,11 +5,7 @@ import LoginScreen from './components/LoginScreen';
 import WelcomeModal from './components/WelcomeModal';
 import StartMenu from './components/StartMenu';
 import Taskbar from './components/Taskbar';
-import { APP_DATA, leapImages, alffieImages, alffieProductDesignImages } from './data/appsData';
-
-
-const loginAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/login.mp3');
-const logoutAudio = new Audio((process.env.PUBLIC_URL || '') + '/Audio/logout.mp3');
+import { APP_DATA } from './data/appsData';
 
 const publicUrl = process.env.PUBLIC_URL || '';
 
@@ -19,7 +15,39 @@ export default function App() {
   const [loginError, setLoginError] = useState(false);
 
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [windows, setWindows] = useState([]);
+
+  const [windows, setWindows] = useState(() => {
+    // Get current browser dimensions safely (fallback to standard sizes if SSR/initial load)
+    const clientWidth = typeof window !== 'undefined' ? window.innerWidth : 1440;
+    const clientHeight = typeof window !== 'undefined' ? window.innerHeight : 900;
+
+    // Define proportional percentage positions or grid fractions based on screen size
+    const initialApps = [
+      { id: 'ai', x: clientWidth * 0.35, y: clientHeight * 0.12, width: 520, height: 500 },
+      { id: 'open_colleges', x: clientWidth * 0.58, y: clientHeight * 0.05, width: 480, height: 320 },
+      { id: 'alffie', x: clientWidth * 0.42, y: clientHeight * 0.42, width: 520, height: 300 },
+      { id: 'about', x: clientWidth * 0.05, y: clientHeight * 0.08, width: 520, height: 700 }
+  
+
+    ];
+
+    return initialApps.map((item, index) => {
+      const appTemplate = APP_DATA.find(a => a.id === item.id);
+      return {
+        ...appTemplate,
+        isMinimized: false,
+        zIndex: 10 + index,
+        width: item.width,
+        height: item.height,
+        initialPos: { 
+          x: item.x, 
+          y: item.y 
+        },
+        exitAction: 'minimize'
+      };
+    });
+  });
+
   const [activeZIndex, setActiveZIndex] = useState(10);
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -40,8 +68,6 @@ export default function App() {
   const taskbarRefs = useRef({});
 
   useEffect(() => {
-    loginAudio.load();
-    logoutAudio.load();
 
     const coreAssets = [
       `${publicUrl}/Backgrounds/flow.jpg`, `${publicUrl}/Backgrounds/tidal.jpg`,
@@ -51,10 +77,8 @@ export default function App() {
     ];
     
     const allAssets = [
-      ...coreAssets, 
-      ...leapImages.map(img => img.url), 
-      ...alffieImages.map(img => img.url),
-      ...alffieProductDesignImages.map(img => img.url)
+      ...coreAssets
+
     ];
 
     allAssets.forEach((src) => {
@@ -87,6 +111,19 @@ export default function App() {
       setHasShownHintOnce(true);
     }
   }, [isStartOpen]);
+
+  // Tracks and normalizes mouse position for the 3D warp grid
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const normX = (e.clientX / window.innerWidth) * 2 - 1;
+      const normY = (e.clientY / window.innerHeight) * 2 - 1;
+      
+      document.documentElement.style.setProperty('--mouse-x-norm', normX);
+      document.documentElement.style.setProperty('--mouse-y-norm', normY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -128,11 +165,6 @@ export default function App() {
       }
       
       setTaskbarVisible(false);
-  
-      if (!isMuted) {
-        loginAudio.currentTime = 0;
-        loginAudio.play().catch(() => {});
-      }
     } else {
       setLoginError(true);
       setPasswordInput('');
@@ -144,10 +176,6 @@ export default function App() {
     setIsStartOpen(false);
     setWindows([]);
     setPlayingVideoId(null);
-    if (!isMuted) {
-      logoutAudio.currentTime = 0;
-      logoutAudio.play().catch(() => {});
-    }
   };
 
   const handleAppClick = (appId) => {
@@ -155,26 +183,33 @@ export default function App() {
     setShowHint(false);
     const existingWindow = windows.find(w => w.id === appId);
     
+    // Calculate the absolute highest z-index currently active on the desktop
+    const currentMaxZ = windows.length > 0 ? Math.max(...windows.map(w => w.zIndex || 1)) : 10;
+    
     if (!existingWindow) {
       const appTemplate = APP_DATA.find(a => a.id === appId);
-      const spawnX = 24 + (spawnCount % 10) * 32;
-      const spawnY = 24 + (spawnCount % 10) * 32;
+      
+      /* Cascades new windows diagonally so they form an overlapping mosaic */
+      const cascadeOffset = (windows.length * 35) % 180;
+      const spawnX = 80 + cascadeOffset;
+      const spawnY = 60 + cascadeOffset;
       
       setWindows([...windows, { 
         ...appTemplate, 
         isMinimized: false, 
-        zIndex: activeZIndex,
+        zIndex: currentMaxZ + 1,
         initialPos: { x: spawnX, y: spawnY },
+        width: appTemplate.width || 680,
+        height: appTemplate.height || 540,
         exitAction: 'minimize'
       }]);
       
-      setActiveZIndex(activeZIndex + 1);
       setSpawnCount(prev => prev + 1);
     } else if (existingWindow.isMinimized) {
       focusWindow(appId);
     } else {
       const activeWindows = windows.filter(w => !w.isMinimized);
-      const highestZIndex = Math.max(...activeWindows.map(w => w.zIndex));
+      const highestZIndex = activeWindows.length > 0 ? Math.max(...activeWindows.map(w => w.zIndex)) : 10;
       
       if (existingWindow.zIndex < highestZIndex) {
         focusWindow(appId);
@@ -193,11 +228,13 @@ export default function App() {
     }, 50);
   };
 
-  const focusWindow = (id) => {
+const focusWindow = (id) => {
+    // Dynamically calculate the highest z-index across all windows + 1
+    const currentMaxZ = windows.length > 0 ? Math.max(...windows.map(w => w.zIndex || 1)) : 10;
+    
     setWindows(windows.map(w => 
-      w.id === id ? { ...w, zIndex: activeZIndex, isMinimized: false, exitAction: 'minimize' } : w
+      w.id === id ? { ...w, zIndex: currentMaxZ + 1, isMinimized: false, exitAction: 'minimize' } : w
     ));
-    setActiveZIndex(activeZIndex + 1);
   };
 
   const toggleVideo = (id, isPlaying) => {
@@ -221,11 +258,23 @@ export default function App() {
     return null;
   };
 
+  // Calculate which window is currently active (on top)
+  const activeWindows = windows.filter(w => !w.isMinimized);
+  const topWindow = activeWindows.length > 0 
+    ? activeWindows.reduce((prev, current) => (prev.zIndex > current.zIndex ? prev : current))
+    : null;
+  
+  const activeAppId = topWindow ? topWindow.id : 'desktop';
+
+  // Automatically update the global CSS colour variable when the active window changes
+  useEffect(() => {
+    const activeColor = topWindow?.themeColor || '#1a1aff';
+    document.documentElement.style.setProperty('--active-accent', activeColor);
+  }, [topWindow]);
+
+
   return (
     <>
-      <div className="desktop-bg-light" style={{ backgroundImage: `url(${publicUrl}/Backgrounds/flow.jpg)` }} />
-      <div className="desktop-bg-dark" style={{ backgroundImage: `url(${publicUrl}/Backgrounds/tidal.jpg)` }} />
-      
       {/* HEAVY BLUR OVERLAY FOR LOGIN SCREEN */}
       <AnimatePresence>
         {!isAuthenticated && (
@@ -249,85 +298,150 @@ export default function App() {
         isLoggedIn={isAuthenticated} 
         isDarkMode={isDarkMode} 
         onExplore={() => {
-          // Delay taskbar animation to wait for Modal's blur to fade out
           setTimeout(() => setTaskbarVisible(true), 400); 
         }} 
       />
+    
+    <div className="desktop" style={{ position: 'relative', zIndex: 1, justifyContent: !isAuthenticated ? 'center' : 'flex-start', alignItems: !isAuthenticated ? 'center' : 'stretch' }}>
       
-      <div className="desktop" style={{ position: 'relative', zIndex: 1, justifyContent: !isAuthenticated ? 'center' : 'flex-start', alignItems: !isAuthenticated ? 'center' : 'stretch' }}>
-        
-        {!isAuthenticated ? (
-          <LoginScreen 
-            handleLogin={handleLogin}
-            passwordInput={passwordInput}
-            setPasswordInput={setPasswordInput}
-            loginError={loginError}
-          />
-        ) : (
-          <>
-            <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }} onClick={() => setIsStartOpen(false)}>
-              <AnimatePresence>
-                {windows.map(win => !win.isMinimized && (
-                  <Window 
-                    key={win.id} 
-                    title={win.title} 
-                    icon={win.icon}
-                    onClose={() => closeWindow(win.id)}
-                    onMinimize={() => handleAppClick(win.id)}
-                    onFocus={() => focusWindow(win.id)}
-                    zIndex={win.zIndex}
-                    targetPosition={getButtonPosition(win.id)}
-                    initialPos={win.initialPos}
-                    defaultWidth={win.width}
-                    defaultHeight={win.height}
-                    exitAction={win.exitAction}
-                  >
-                    {win.content({ 
-                      appId: win.id, 
-                      playingVideoId, 
-                      onToggleVideo: toggleVideo,
-                      isMuted // Pass system mute state down
-                    })}
-                  </Window>
-                ))}
-              </AnimatePresence>
-            </div>
+{/* AMBIENT AURORA BACKGROUND */}
+<div className="ambient-background">
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '15%', '-10%', '0%'], y: ['0%', '-10%', '15%', '0%'], scale: [1, 1.2, 0.9, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: '-10%', left: '-10%', width: '80vw', height: '80vw', background: 'radial-gradient(circle, var(--orb-1) 0%, transparent 65%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '-15%', '10%', '0%'], y: ['0%', '15%', '-15%', '0%'], scale: [1, 0.8, 1.2, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          style={{ top: '20%', right: '-20%', width: '75vw', height: '75vw', background: 'radial-gradient(circle, var(--orb-2) 0%, transparent 65%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '10%', '-15%', '0%'], y: ['0%', '-15%', '10%', '0%'], scale: [1, 1.15, 0.85, 1] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+          style={{ bottom: '-30%', left: '10%', width: '90vw', height: '90vw', background: 'radial-gradient(circle, var(--orb-3) 0%, transparent 65%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '12%', '-8%', '0%'], y: ['0%', '10%', '-12%', '0%'], scale: [1, 1.1, 0.95, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          style={{ top: '30%', left: '20%', width: '65vw', height: '65vw', background: 'radial-gradient(circle, var(--orb-4) 0%, transparent 60%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '-12%', '8%', '0%'], y: ['0%', '-12%', '12%', '0%'], scale: [1, 0.95, 1.15, 1] }}
+          transition={{ duration: 19, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          style={{ top: '-15%', right: '15%', width: '70vw', height: '70vw', background: 'radial-gradient(circle, var(--orb-5) 0%, transparent 60%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '-10%', '14%', '0%'], y: ['0%', '12%', '-10%', '0%'], scale: [1, 1.05, 0.9, 1] }}
+          transition={{ duration: 17, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+          style={{ bottom: '10%', right: '-10%', width: '70vw', height: '70vw', background: 'radial-gradient(circle, var(--orb-6) 0%, transparent 65%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '8%', '-14%', '0%'], y: ['0%', '-8%', '14%', '0%'], scale: [1, 0.9, 1.1, 1] }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+          style={{ top: '40%', left: '-15%', width: '60vw', height: '60vw', background: 'radial-gradient(circle, var(--orb-7) 0%, transparent 65%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '-14%', '10%', '0%'], y: ['0%', '14%', '-8%', '0%'], scale: [1, 1.15, 0.95, 1] }}
+          transition={{ duration: 21, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+          style={{ top: '5%', left: '30%', width: '55vw', height: '55vw', background: 'radial-gradient(circle, var(--orb-8) 0%, transparent 60%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '10%', '-12%', '0%'], y: ['0%', '-14%', '10%', '0%'], scale: [1, 0.95, 1.2, 1] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 7 }}
+          style={{ bottom: '-10%', right: '25%', width: '75vw', height: '75vw', background: 'radial-gradient(circle, var(--orb-9) 0%, transparent 65%)' }} 
+        />
+        <motion.div 
+          className="ambient-orb" 
+          animate={{ x: ['0%', '-8%', '12%', '0%'], y: ['0%', '10%', '-14%', '0%'], scale: [1, 1.1, 0.85, 1] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 3.5 }}
+          style={{ top: '50%', right: '5%', width: '65vw', height: '65vw', background: 'radial-gradient(circle, var(--orb-10) 0%, transparent 65%)' }} 
+        />
+      </div>
 
-            {showHint && !isStartOpen && (
-              <div className="start-hint">
-                Click here to begin
-              </div>
-            )}
 
+      {!isAuthenticated ? (
+        <LoginScreen 
+          handleLogin={handleLogin}
+          passwordInput={passwordInput}
+          setPasswordInput={setPasswordInput}
+          loginError={loginError}
+        />
+      ) : (
+        <>
+          <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }} onClick={() => setIsStartOpen(false)}>
             <AnimatePresence>
-              {isStartOpen && (
-                <StartMenu 
-                  handleAppClick={handleAppClick}
-                  handleLogout={handleLogout}
-                  isMuted={isMuted}
-                  setIsMuted={setIsMuted}
-                  isDarkMode={isDarkMode}
-                  setIsDarkMode={setIsDarkMode}
-                />
-              )}
+              {windows.map(win => !win.isMinimized && (
+                <Window 
+                  key={win.id} 
+                  title={win.title}
+                  themeColor={win.themeColor}
+                  icon={win.icon}
+                  onClose={() => closeWindow(win.id)}
+                  onMinimize={() => handleAppClick(win.id)}
+                  onFocus={() => focusWindow(win.id)}
+                  zIndex={win.zIndex}
+                  targetPosition={getButtonPosition(win.id)}
+                  initialPos={win.initialPos}
+                  defaultWidth={win.width}
+                  defaultHeight={win.height}
+                  exitAction={win.exitAction}
+                >
+                  {win.content({ 
+                    appId: win.id, 
+                    playingVideoId, 
+                    onToggleVideo: toggleVideo,
+                    isMuted 
+                  })}
+                </Window>
+              ))}
             </AnimatePresence>
+          </div>
 
-            {taskbarVisible && (
-              <Taskbar 
-                toggleStart={toggleStart}
-                windows={windows}
-                taskbarRefs={taskbarRefs}
+          {showHint && !isStartOpen && (
+            <div className="start-hint">
+              Click here to explore
+            </div>
+          )}
+
+          <AnimatePresence>
+            {isStartOpen && (
+              <StartMenu 
                 handleAppClick={handleAppClick}
-                playingVideoId={playingVideoId}
+                handleLogout={handleLogout}
                 isMuted={isMuted}
                 setIsMuted={setIsMuted}
                 isDarkMode={isDarkMode}
                 setIsDarkMode={setIsDarkMode}
               />
             )}
-          </>
-        )}
-      </div>
-    </>
-  );
+          </AnimatePresence>
+
+          {taskbarVisible && (
+            <Taskbar 
+              toggleStart={toggleStart}
+              windows={windows}
+              taskbarRefs={taskbarRefs}
+              handleAppClick={handleAppClick}
+              playingVideoId={playingVideoId}
+              isMuted={isMuted}
+              setIsMuted={setIsMuted}
+              isDarkMode={isDarkMode}
+              setIsDarkMode={setIsDarkMode}
+            />
+          )}
+        </>
+      )}
+    </div>
+  </>
+);
 }
