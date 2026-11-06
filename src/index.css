@@ -165,17 +165,19 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  /* Doubled the shift range for a much stronger mouse response */
-  transform: translate(calc(var(--mouse-x-norm, 0) * -9vw), calc(var(--mouse-y-norm, 0) * -9vh));
-  transition: transform 0.3s ease-out;
+  /* Increased multiplier from -9vw/-9vh to -18vw/-18vh for a much more responsive shift */
+  transform: translate(calc(var(--mouse-x-norm, 0) * -18vw), calc(var(--mouse-y-norm, 0) * -18vh));
+  transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1); /* Faster, snappier glide */
 }
 
 .ambient-orb {
   position: absolute;
-  border-radius: 10%;
-  opacity: 0.9; 
+  border-radius: 50%; /* Softer, organic bokeh edges */
+  opacity: 0.85; 
   pointer-events: none;
-  /* Removed the static CSS animation */
+  /* Adds a subtle breathing scale effect based on mouse distance */
+  transform: scale(calc(1 + var(--mouse-dist, 0) * 0.15));
+  transition: transform 0.4s ease-out;
 }
 
 @keyframes orb-float {
