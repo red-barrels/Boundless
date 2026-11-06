@@ -3,7 +3,7 @@ import { Rnd } from 'react-rnd';
 import { X, Minus } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function Window({ title, icon, children, onClose, onMinimize, zIndex, onFocus, targetPosition, initialPos, defaultWidth, defaultHeight, exitAction }) {
+export default function Window({ title, themeColor, children, onClose, onMinimize, zIndex, onFocus, targetPosition, initialPos, defaultWidth, defaultHeight, exitAction }) {
   const windowRef = useRef(null);
   const [offsets, setOffsets] = useState({ x: 0, y: window.innerHeight });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -28,7 +28,7 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
   }, [targetPosition]);
 
   return (
-      <Rnd
+    <Rnd
       className="window"
       default={{
         x: initialPos ? initialPos.x : 60,
@@ -36,16 +36,15 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
         width: defaultWidth || 900,
         height: defaultHeight || 700,
       }}
-      /* Removed the conditional size and position props here */
       disableDragging={isMobile}
       enableResizing={!isMobile}
       minWidth={isMobile ? '100%' : 600}
       minHeight={isMobile ? '100%' : 400}
       bounds="parent"
       dragHandleClassName="window-header"
-      onMouseDown={onFocus}
+      onPointerDownCapture={onFocus}
       style={{ zIndex, position: 'absolute' }}
-        >
+    >
       <motion.div 
         ref={windowRef}
         initial={{ scale: 0.1, opacity: 0, x: offsets.x, y: offsets.y }}
@@ -60,10 +59,10 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
           border: '1px solid var(--window-border)',
           borderRadius: isMobile ? '0' : '12px', 
           overflow: 'hidden', 
-          /* Updated Box Shadow */
           boxShadow: 'inset 0 1px 0 0 var(--glass-shine), 0 12px 40px var(--glass-shadow)',
           backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)'
+          WebkitBackdropFilter: 'blur(16px)',
+          position: 'relative'
         }}
       >
         <div className="window-header" style={{
@@ -73,25 +72,44 @@ export default function Window({ title, icon, children, onClose, onMinimize, zIn
           padding: '10px 14px', 
           background: 'rgba(0,0,0,0.04)', 
           cursor: isMobile ? 'default' : 'grab',
-          borderBottom: '1px solid var(--window-border)'
+          borderBottom: '1px solid var(--window-border)',
+          userSelect: 'none'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '4px' }}>
-            {icon && <div className="window-header-icon">{icon}</div>}
-            <span style={{ fontSize: '15px', fontWeight: 600 }}>{title}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '4px', pointerEvents: 'none' }}>
+            <span className="text-icon">
+              {title}
+            </span>
           </div>
-          <div style={{ display: 'flex', gap: '4px' }}>
+          
+          {/* Using explicit pointer-down capture on buttons so drag handlers never swallow the click */}
+          <div style={{ display: 'flex', gap: '4px', zIndex: 10 }}>
             {!isMobile && (
-              <button onClick={onMinimize} className="window-control-btn" aria-label="Minimize Window">
+              <button 
+                onPointerDown={(e) => {
+                  e.stopPropagation();
+                  onMinimize();
+                }}
+                className="window-control-btn" 
+                aria-label="Minimize Window"
+                style={{ pointerEvents: 'auto', cursor: 'pointer' }}
+              >
                 <Minus size={18} />
               </button>
             )}
-            <button onClick={onClose} className="window-control-btn close" aria-label="Close Window">
+            <button 
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+              className="window-control-btn close" 
+              aria-label="Close Window"
+              style={{ pointerEvents: 'auto', cursor: 'pointer' }}
+            >
               <X size={18} />
             </button>
           </div>
         </div>
         
-        {/* ADDED: WebkitOverflowScrolling for smooth iOS mobile scrolling */}
         <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch' }}>
           {children}
         </div>

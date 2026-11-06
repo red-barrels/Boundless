@@ -109,15 +109,15 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode, onExplore }) {
                 </ul>
               )}
 
-            <button
+              <button
               onClick={handleClose}
+              className="welcome-explore-btn"
               style={{
                 marginTop: '16px',
                 padding: '12px 20px',
                 borderRadius: '8px',
                 border: 'none',
-                background: 'var(--text-color)',
-                color: isDarkMode ? '#000000' : '#ffffff',
+                /* Removed inline background and color so index.css can handle the light/dark themes */
                 fontSize: '16px',
                 fontWeight: 600,
                 cursor: 'pointer',

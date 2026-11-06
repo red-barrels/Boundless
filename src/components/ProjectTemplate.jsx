@@ -36,7 +36,7 @@ function CarouselBlock({ images, description }) {
         }}
       >
       {description && (
-        <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto 16px auto', textAlign: 'left' }}>
+        <div className="project-text-column" style={{ marginBottom: '16px' }}>
           <p style={{ 
             margin: 0, 
             opacity: 0.6, 
@@ -181,7 +181,6 @@ function CarouselBlock({ images, description }) {
 function VideoBlock({ src, poster, appId, playingVideoId, onToggleVideo, description, isMuted }) {
   const videoRef = useRef(null);
 
-  // Sync video element's muted state with global system mute
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = isMuted;
@@ -205,7 +204,7 @@ function VideoBlock({ src, poster, appId, playingVideoId, onToggleVideo, descrip
       style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       {description && (
-        <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto 16px auto', textAlign: 'left' }}>
+        <div className="project-text-column" style={{ marginBottom: '16px' }}>
           <p style={{ 
             margin: 0, 
             opacity: 0.6, 
@@ -260,7 +259,7 @@ function IframeBlock({ title, srcDoc, description }) {
       style={{ width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       {description && (
-        <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto 16px auto', textAlign: 'left' }}>
+        <div className="project-text-column" style={{ marginBottom: '16px' }}>
           <p style={{ 
             margin: 0, 
             opacity: 0.6, 
@@ -299,26 +298,26 @@ function IframeBlock({ title, srcDoc, description }) {
   );
 }
 
-export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, playingVideoId, onToggleVideo, isMuted }) {
+export default function ProjectTemplate({ brandColor, logoUrl, heading, blocks, appId, playingVideoId, onToggleVideo, isMuted }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', boxSizing: 'border-box', paddingBottom: '120px' }}>
-      <div style={{ 
-        width: '100%',
-        boxSizing: 'border-box',
-        background: brandColor, 
-        padding: '30px 20px', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        borderBottom: '1px solid var(--window-border)',
-        marginBottom: '48px'
-      }}>
-        {logoUrl ? (
-          <GracefulImage src={logoUrl} alt="Logo" style={{ height: '60px', objectFit: 'contain' }} />
-        ) : (
-          <h2 style={{ color: '#fff', margin: 0 }}>LOGO</h2>
-        )}
-      </div>
+      {(brandColor || logoUrl) && (
+        <div style={{ 
+          width: '100%',
+          boxSizing: 'border-box',
+          background: brandColor, 
+          padding: '30px 20px', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          borderBottom: '1px solid var(--window-border)',
+          marginBottom: '48px'
+        }}>
+          {logoUrl && (
+            <GracefulImage src={logoUrl} alt="Logo" style={{ height: '60px', objectFit: 'contain' }} />
+          )}
+        </div>
+      )}
 
       <div style={{ 
         padding: '0 32px', 
@@ -329,7 +328,37 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
         maxWidth: '1000px',
         boxSizing: 'border-box'
       }}>
+        
+        {heading && (
+          <div className="project-text-column">
+            <h1 className="text-display">
+              {heading}
+            </h1>
+          </div>
+        )}
+
         {blocks && blocks.map((block, idx) => {
+          if (block.type === 'heading') {
+            return (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+                className="project-text-column"
+              >
+                <h1 className="text-display" style={{ 
+                  fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', 
+                  lineHeight: '1.05', 
+                  margin: 0, 
+                  color: 'var(--text-color)' 
+                }}>
+                  {block.title}
+                </h1>
+              </motion.div>
+            );
+          }
           if (block.type === 'text') {
             return (
               <motion.div 
@@ -338,11 +367,12 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5 }}
-                style={{ width: '100%', maxWidth: '600px', margin: '0 auto', textAlign: 'left' }}
+                className="project-text-column"
               >
-                {/* The title renders first, followed by the optional image, then the text */}
-                <h3 style={{ margin: '0 0 16px 0', fontSize: '22px' }}>{block.title}</h3>
-                
+                <h3 className="text-display" style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '16px' }}>
+                  {block.title}
+                </h3>
+
                 {block.image && (
                   <GracefulImage 
                     src={block.image} 
@@ -351,7 +381,7 @@ export default function ProjectTemplate({ brandColor, logoUrl, blocks, appId, pl
                   />
                 )}
                 
-                <p style={{ margin: 0, opacity: 0.8, lineHeight: '1.6' }}>{block.text}</p>
+                <p style={{ margin: 0, opacity: 0.8 }}>{block.text}</p>
               </motion.div>
             );
           }

@@ -11,19 +11,20 @@ export default function StartMenu({ handleAppClick, handleLogout, isMuted, setIs
       transition={{ duration: 0.15, ease: "easeOut" }}
       className="start-menu glass-panel"
     >
-      {APP_DATA.map(app => (
+    {APP_DATA.map(app => (
         <button key={app.id} className="start-item" onClick={() => handleAppClick(app.id)}>
-          {app.icon}
-          {app.title}
+          <span className="text-icon">
+            {app.title}
+          </span>
         </button>
-      ))}
+      ))} 
 
       <div style={{ height: '1px', background: 'var(--window-border)', margin: '4px 0' }} />
       
-      <button className="start-item" onClick={handleLogout} style={{ color: 'var(--text-color)' }}>
+      <button className="start-item" onClick={handleLogout} style={{ color: 'var(--text-color)', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{
-          width: '42px',
-          height: '42px',
+          width: '36px',
+          height: '36px',
           borderRadius: '6px',
           display: 'flex',
           alignItems: 'center',
@@ -31,9 +32,9 @@ export default function StartMenu({ handleAppClick, handleLogout, isMuted, setIs
           background: 'rgba(128, 128, 128, 0.25)',
           flexShrink: 0
         }}>
-          <LogOut size={22} color="var(--text-color)" />
+          <LogOut size={20} color="var(--text-color)" />
         </div>
-        <span>Log out</span>
+        <span style={{ fontWeight: 600 }}>Log out</span>
       </button>
 
       <div className="mobile-sys-tray">

@@ -13,6 +13,7 @@ export default function Taskbar({
   isDarkMode, 
   setIsDarkMode
 }) {
+  const [hoveredAppId, setHoveredAppId] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -60,20 +61,16 @@ export default function Taskbar({
                 key={win.id} 
                 ref={(el) => (taskbarRefs.current[win.id] = el)}
                 onClick={() => handleAppClick(win.id)}
-                className={`taskbar-app-btn ${isActive ? 'active' : ''}`}
+                className={`taskbar-app-btn ${isActive ? 'active' : ''} ${win.isMinimized ? 'minimized' : ''}`}
                 aria-label={`Toggle ${win.title}`}
+                style={{ '--app-theme': win.themeColor || '#ff3366' }}
               >
-                {win.icon}
-                <span className="app-title">{win.title}</span>
+                <span className="text-icon">{win.title}</span>
+                
                 <AnimatePresence>
                   {playingVideoId === win.id && (
-                    <motion.div 
-                      initial={{ scale: 0 }} 
-                      animate={{ scale: 1 }} 
-                      exit={{ scale: 0 }}
-                      style={{ display: 'flex', alignItems: 'center', marginLeft: '6px' }}
-                    >
-                      <Volume2 size={22} color="var(--text-color)" />
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} style={{ marginLeft: '6px', display: 'flex' }}>
+                      <Volume2 size={16} color="var(--text-color)" />
                     </motion.div>
                   )}
                 </AnimatePresence>
