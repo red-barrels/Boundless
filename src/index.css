@@ -9,14 +9,14 @@
 
 :root {
   --bg-desktop: #f0eee9;
-  --orb-1: #ebd4bf; 
-  --orb-2: #eadbc4; 
-  --orb-3: #c7beeb; 
-  --orb-4: #c2d8cf; 
+  --orb-1: #e0c3a8; 
+  --orb-2: #e7d5b8; 
+  --orb-3: #c0b6e9; 
+  --orb-4: #b9d8cb; 
   --orb-5: #c3daf2; 
-  --orb-6: #edddff; /* Soft lilac */
+  --orb-6: #5efaff; /* Soft lilac */
   --orb-7: #cefff4; /* Muted mint */
-  --orb-8: #fef3c7; /* Warm cream */
+  --orb-8: #f3e5ac; /* Warm cream */
   --orb-9: #d9f0ff; /* Ice blue */
   --orb-10: #edd2f5; /* Pale lavender */
   
@@ -383,12 +383,11 @@ code, pre {
   background: rgba(128, 128, 128, 0.12);
 }
 
-.start-item img,
-.start-item svg {
-  width: 24px !important;
-  height: 24px !important;
+.start-item img {
+  width: 36px !important;
+  height: 36px !important;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 6px;
   flex-shrink: 0;
 }
 
