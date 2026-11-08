@@ -23,9 +23,6 @@ export default function App() {
 
     // Define proportional percentage positions or grid fractions based on screen size
     const initialApps = [
-      { id: 'ai', x: clientWidth * 0.35, y: clientHeight * 0.12, width: 520, height: 500 },
-      { id: 'open_colleges', x: clientWidth * 0.58, y: clientHeight * 0.05, width: 480, height: 320 },
-      { id: 'alffie', x: clientWidth * 0.42, y: clientHeight * 0.42, width: 520, height: 300 },
       { id: 'about', x: clientWidth * 0.05, y: clientHeight * 0.08, width: 520, height: 700 }
   
 
