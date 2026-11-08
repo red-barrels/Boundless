@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { LogOut, Volume2, VolumeX, Moon, Sun } from 'lucide-react';
 import { APP_DATA } from '../data/appsData';
 
+const publicUrl = process.env.PUBLIC_URL || '';
+
 export default function StartMenu({ handleAppClick, handleLogout, isMuted, setIsMuted, isDarkMode, setIsDarkMode }) {
   return (
     <motion.div 
@@ -12,14 +14,13 @@ export default function StartMenu({ handleAppClick, handleLogout, isMuted, setIs
       className="start-menu glass-panel"
     >
     {APP_DATA.map(app => (
-        <button key={app.id} className="start-item" onClick={() => handleAppClick(app.id)}>
-          <span className="text-icon">
-            {app.title}
-          </span>
-        </button>
-      ))} 
-
-      <div style={{ height: '1px', background: 'var(--window-border)', margin: '4px 0' }} />
+      <button key={app.id} className="start-item" onClick={() => handleAppClick(app.id)}>
+        {app.icon}
+        <span className="text-icon">
+          {app.title}
+        </span>
+      </button>
+    ))}
       
       <button className="start-item" onClick={handleLogout} style={{ color: 'var(--text-color)', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{

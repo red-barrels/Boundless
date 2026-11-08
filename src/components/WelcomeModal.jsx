@@ -76,8 +76,8 @@ export default function WelcomeModal({ isLoggedIn, isDarkMode, onExplore }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Compass size={24} />
-                <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 600 }}>Welcome to tomOS</h2>
-              </div>
+                <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>Welcome to tomOS</h2>
+                </div>
               <button 
                 onClick={handleClose}
                 className="window-control-btn"
