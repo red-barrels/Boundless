@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
+import GracefulImage from '../../components/GracefulImage';
 
 export const aiData = { 
   id: 'ai', 
-  title: 'Thoughts on AI', 
+  title: 'Thoughts on AI',
+  icon: <GracefulImage src="/Icons/ai_icon.png" alt="Alffie" className="app-icon" />,
   themeColor: '#00bfff',
   width: 800, 
   height: 750, 
@@ -27,7 +29,7 @@ export const aiData = {
             className="hero-illustration"
             style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1 }}
           >
-            <img 
+            <GracefulImage 
               src="/Hero/Hero_03.png" 
               alt="AI Wave Hero" 
               style={{ width: '100%', height: '100%', objectFit: 'contain' }}

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
+import GracefulImage from '../../components/GracefulImage';
 
 export const aboutData = {
   id: 'about',
+  icon: <GracefulImage src="/Icons/about_icon.png" alt="About" className="app-icon" />,
   title: 'About Me',
   themeColor: '#ff6eb4',
   width: 800,
@@ -26,9 +28,9 @@ export const aboutData = {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
             className="hero-illustration"
-            style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1, maxWidth: '750px' }}
+            style={{ position: 'absolute' }} 
           >
-            <img 
+            <GracefulImage 
               src="/Hero/Hero_02.png" 
               alt="Tom Cheesman Hero" 
               style={{ width: '100%', height: '100%', objectFit: 'contain' }}

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import ProjectTemplate from '../../components/ProjectTemplate';
+import GracefulImage from '../../components/GracefulImage';
 
 const publicUrl = process.env.PUBLIC_URL || '';
 
@@ -24,6 +25,7 @@ const leapBlocks = [
 export const leapData = { 
   id: 'leap', 
   title: 'Leap Training',
+  icon: <GracefulImage src="/Icons/leap_icon.png" alt="Leap" className="app-icon" />,
   themeColor: '#55d055',
   width: 850, 
   height: 750, 
@@ -44,7 +46,7 @@ export const leapData = {
             className="hero-illustration"
             style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1 }}
           >
-            <img src="/Hero/Hero_05.png" alt="Leap Hero" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <GracefulImage  src="/Hero/Hero_05.png" alt="Leap Hero" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </motion.div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import ProjectTemplate from '../../components/ProjectTemplate';
 import { ocQuizHtml } from '../iframeData';
+import GracefulImage from '../../components/GracefulImage';
 
 const publicUrl = process.env.PUBLIC_URL || '';
 
@@ -25,7 +26,8 @@ const openCollegesBlocks = [
 
 export const openCollegesData = { 
   id: 'open_colleges', 
-  title: 'Open Colleges', 
+  title: 'Open Colleges',
+  icon: <GracefulImage src="/Icons/OC_icon.png" alt="Open Colleges" className="app-icon" />,
   themeColor: '#a655e0',
   width: 850, 
   height: 750, 
@@ -47,7 +49,7 @@ export const openCollegesData = {
             className="hero-illustration"
             style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1 }}
           >
-            <img 
+            <GracefulImage  
               src="/Hero/Hero_04B.png" 
               alt="Open Colleges Hero" 
               style={{ width: '100%', height: '100%', objectFit: 'contain' }}

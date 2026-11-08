@@ -36,7 +36,7 @@ const alffieBlocks = [
 ];
 
 export const alffieData = { 
-  id: 'alffie', 
+  id: 'alffie',
   title: 'Alffie',
   themeColor: '#ff6d00',
   icon: <GracefulImage src="/Icons/alffie_icon.png" alt="Alffie" className="app-icon" />,
@@ -59,7 +59,7 @@ export const alffieData = {
             className="hero-illustration"
             style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1 }}
           >
-            <img 
+            <GracefulImage 
               src="/Hero/Hero_6.png" 
               alt="Alffie Hero" 
               style={{ width: '100%', height: '100%', objectFit: 'contain' }} 

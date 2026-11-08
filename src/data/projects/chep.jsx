@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import ProjectTemplate from '../../components/ProjectTemplate';
 import { chepHandoverHtml, chepQualityHtml } from '../iframeData';
+import GracefulImage from '../../components/GracefulImage';
 
 const chepBlocks = [
   { type: 'text', text: 'CHEP is a massive global supply chain company. They needed training material that felt authentic to the day-to-day software their teams actually use.' },
@@ -20,7 +21,8 @@ const chepBlocks = [
 ];
 
 export const chepData = { 
-  id: 'chep', 
+  id: 'chep',
+  icon: <GracefulImage src="/Icons/chep_icon.png" alt="CHEP" className="app-icon" />,
   title: 'CHEP',
   themeColor: '#0077c8',
   width: 850, 
@@ -44,7 +46,8 @@ export const chepData = {
             className="hero-illustration"
             style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1 }}
           >
-            <img src="/Hero/Hero_CHEP.png" alt="CHEP Hero" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <GracefulImage
+            src="/Hero/Hero_CHEP.png" alt="CHEP Hero" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </motion.div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import ProjectTemplate from '../../components/ProjectTemplate';
+import GracefulImage from '../../components/GracefulImage';
 
 const publicUrl = process.env.PUBLIC_URL || '';
 
@@ -22,6 +23,7 @@ const nabBlocks = [
 export const nabData = { 
   id: 'nab', 
   title: 'NAB',
+  icon: <GracefulImage src="/Icons/NAB_icon.png" alt="NAB" className="app-icon" />,
   themeColor: '#ed0000',
   width: 850, 
   height: 750, 
@@ -43,7 +45,7 @@ export const nabData = {
             className="hero-illustration"
             style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1 }}
           >
-            <img src="/Hero/Hero_08.png" alt="NAB Hero" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <GracefulImage  src="/Hero/Hero_08.png" alt="NAB Hero" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </motion.div>
         </div>
       </div>
